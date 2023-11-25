@@ -25,16 +25,16 @@ export const Container = styled.div`
         width: 407px;
         height: 180px;
         background-color: white;
-        border: 1px solid gray;
         margin-top: 35px;
         z-index: 1000;
         border-radius: 3px;
+        box-shadow: 1px 1px 10px gray;
+
     }
     .recent-searches {
         height: 25px;
-        border-bottom: 1px solid lightgray;
         font-size: 15px;
-        padding: 5px 5px 5px 5px;
+        padding: 8px 5px 4px 5px;
     }
     
 `
@@ -42,4 +42,5 @@ export const Container = styled.div`
 export const Inputbox = styled.input`
     width: 400px;
     height: 30px;
+    z-index: 2000;
 `

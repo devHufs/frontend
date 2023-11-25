@@ -32,11 +32,13 @@ const Main = () => {
                 <img className="logoimg" src={Logo} />
             </Link>
             <div className="left">
-                <img className="profile" src={BasicProfile} />
+                <Link to="/mypage">
+                    <img className="profile" src={BasicProfile} />
+                </Link>
                 {isLoggedin ?
-                <Button className="btn" onClick={handleLoginButtonClick}>로그아웃</Button> :
-                <Button className="btn" onClick={handleLoginButtonClick}>로그인</Button>
-}
+                    <Button className="btn" onClick={handleLoginButtonClick}>로그아웃</Button> :
+                    <Button className="btn" onClick={handleLoginButtonClick}>로그인</Button>
+                }
             </div>
         </Container>
     );
