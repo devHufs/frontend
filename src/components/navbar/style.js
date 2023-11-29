@@ -26,3 +26,23 @@ export const Container = styled.div`
     }
 `
 
+export const ModalContainer = styled.div`
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    /* pointer-events: none;  */
+`
+
+export const Itsmodal = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    margin-left: 9px;`
+

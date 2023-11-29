@@ -1,16 +1,28 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
+    align-items: center;
     height: 100px;
     width: 100%;
     border-bottom: 1px solid lightgray;
+
+    @media (min-width: 1040px) {
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    }
+
+
     .search {
         display: flex;
         margin: 10px;
     }
+    .select {
+        display: flex;
+    }
     .btn{
         height: 35.2px;
-        width: 60px;
+        width: 70px;
         margin: 0px 10px 0px 10px;
         border: none;
         cursor: pointer;
