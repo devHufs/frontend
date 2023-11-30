@@ -5,9 +5,8 @@ import { useParams } from 'react-router-dom';
 import { Container, Background } from './style';
 import { jwtDecode } from 'jwt-decode';
 
-
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import { GoogleLogin } from '@react-oauth/google'
+import { GoogleLogin, googleLogout } from '@react-oauth/google'
 import { gapi } from 'gapi-script';
 
 
@@ -17,31 +16,15 @@ const redirection_uri = 'http://localhost:3000'
 
 const Main = () => {
 
-
-
-    // const getUser = async () => {
-    //     try {
-    //         const response = await axios.get('', {
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 "X-AUTH-TOKEN": token
-    //             },
-    //             withCredentials: true,
-    //             'ngrok-skip-browser-warning': true,
-    //         });
-    //         console.log("성공");
-    //         console.log(response.data);
-    //     } catch (error) {
-    //         console.log('유저 정보 가져오기 실패');
-    //         console.error(error);
-    //     }
-    // };
-
     const navigate = useNavigate();
+
+    const Towrite = () => {
+        navigate('/write')
+    }
 
     useEffect(() => {
         function start() {
-            gapi.auth2.init({
+            gapi.client.init({
                 client_id: GOOGLE_REST_API_KEY,
                 scope: 'email'
             });
@@ -51,11 +34,12 @@ const Main = () => {
     }, []);
 
 
-
     const onSuccess = (response) => {
         console.log(response);
         // console.log(response.credential)
         console.log(jwtDecode(response.credential));
+        var accessToken = gapi.auth.getToken();
+        console.log("accessToken:", accessToken);
 
         navigate('/');
     };
@@ -63,6 +47,40 @@ const Main = () => {
     const onFailure = (response) => {
         console.log(response);
     };
+
+
+    // useEffect(() => {
+    //     const script = document.createElement('script');
+    //     // script.src = 'https://accounts.google.com/o/oauth2/v2/auth?';
+    //     script.src = 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${GOOGLE_REST_API_KEY}&redirect_uri=${`/`}'
+    //     // script.async = true;
+    //     script.onload = () => {
+    //       window.gapi.load('auth2', () => {
+    //         window.gapi.auth2.init({
+    //           client_id: GOOGLE_REST_API_KEY,
+    //         });
+    //       });
+    //     };
+    //     document.body.appendChild(script);
+
+    //     return () => {
+    //       document.body.removeChild(script);
+    //     };
+    //   }, []);
+
+    //   const handleGoogleLogin = async () => {
+    //     try {
+    //       const response = await window.gapi.auth2.getAuthInstance().signIn({
+    //         scope: 'profile email',
+    //       });
+
+    //       const accessToken = response.getAuthResponse().access_token;
+    //       console.log(response)
+    //     //   console.log('AccessToken:', accessToken);
+    //     } catch (error) {
+    //       console.error('Google login error:', error);
+    //     }
+    //   };
 
     return (
         <Background>
@@ -75,6 +93,7 @@ const Main = () => {
                         onFailure={onFailure}
                     />
                 </GoogleOAuthProvider>
+                {/* <button onClick={handleGoogleLogin}>구글로그인</button> */}
             </Container>
         </Background>
     );
@@ -82,4 +101,3 @@ const Main = () => {
 }
 
 export default Main;
-

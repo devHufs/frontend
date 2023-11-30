@@ -1,10 +1,12 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import '../../App.css';
 
 export const Container = styled.div`
     align-items: center;
     height: 100px;
     width: 100%;
     border-bottom: 1px solid lightgray;
+    font-family: "SUITE-Regular";
 
     @media (min-width: 1040px) {
     display: flex;
@@ -26,6 +28,7 @@ export const Container = styled.div`
         margin: 0px 10px 0px 10px;
         border: none;
         cursor: pointer;
+        font-family: "SUITE-Regular";
     }
     .checkbox {
         width: 150px;
@@ -41,7 +44,6 @@ export const Container = styled.div`
         z-index: 1000;
         border-radius: 3px;
         box-shadow: 1px 1px 10px gray;
-
     }
     .recent-searches {
         height: 25px;

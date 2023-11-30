@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import '../../App.css';
+
 
 export const Container = styled.div`
     border-bottom: 1px solid lightgray;
@@ -6,6 +8,8 @@ export const Container = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
+    font-family: "SUITE-Regular";
+
     .logoimg {
         padding: 10px;
         width: 120px;
@@ -23,6 +27,8 @@ export const Container = styled.div`
         height: 30px;
         border: none;
         cursor: pointer;
+        font-family: "SUITE-Regular";
+
     }
 `
 
