@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import BasicProfile from '../BasicProfile.png';
+import BasicProfile from '../../images/BasicProfile.png';
 import { Container, Left, Right, Info, Scrap, Posts } from './style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
@@ -21,8 +21,12 @@ const Main = () => {
     return (
         <Container>
             <Left>
+            <div> </div>
+
+            </Left>
+            <Right>
                 <Info>
-                    <img className="profile" src={BasicProfile} />
+                    {/* <img className="profile" src={BasicProfile} /> */}
                 </Info>
                 <Scrap>
                     <div className='title'>스크랩글</div>
@@ -65,9 +69,6 @@ const Main = () => {
                         </div>
                     </div>
                 </Posts>
-            </Left>
-            <Right>
-                <div>hello</div>
             </Right>
         </Container>
     );

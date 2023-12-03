@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import '../../App.css';
 
 export const Container = styled.div`
-    height: 100%;
-    height: 670px;
+    height: 650px;
+    max-width: 1280px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     font-family: "SUITE-Regular";
@@ -14,22 +15,22 @@ export const Container = styled.div`
 
 export const Left = styled.div`
     display: flex;
-    flex-direction: column;
-    width: 1200px;
+    width: 300px;
     height: 100%;
 
 `
 
 export const Right = styled.div`
     display: flex;
-    width: 400px;
+    flex-direction: column;
+    width: 800px;
     border-left: 1px solid lightgray;
     height: 100%;
 
 `
 
 export const Info = styled.div`
-    height: 260px;
+    height: 200px;
     width: 100%;
     border-bottom: 1px solid lightgray;
     /* background-color: black; */

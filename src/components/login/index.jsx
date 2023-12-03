@@ -4,9 +4,9 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Container, Background } from './style';
 import { jwtDecode } from 'jwt-decode';
-
+import googleLogo from '../../images/google.png'
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import { GoogleLogin, googleLogout } from '@react-oauth/google'
+import { GoogleLogin } from '@react-oauth/google'
 import { gapi } from 'gapi-script';
 
 
@@ -26,7 +26,8 @@ const Main = () => {
         function start() {
             gapi.client.init({
                 client_id: GOOGLE_REST_API_KEY,
-                scope: 'email'
+                scope: 'email',
+                // redirection_uri: 'http://localhost:3000/',
             });
         }
 
@@ -34,16 +35,42 @@ const Main = () => {
     }, []);
 
 
-    const onSuccess = (response) => {
-        console.log(response);
-        // console.log(response.credential)
-        console.log(jwtDecode(response.credential));
-        var accessToken = gapi.auth.getToken();
-        console.log("accessToken:", accessToken);
+    const onSuccess = async (response) => {
+        console.log("credential", response);
+        localStorage.clear();
 
-        navigate('/');
+
+        try {
+            const auth2 = gapi.auth2.getAuthInstance();
+            const userinfo = await auth2.signIn();
+
+            console.log('User signed in:', userinfo.xc);
+
+            // const accessToken = gapi.auth.getToken();
+            const accessToken = userinfo.xc.access_token;
+            console.log("accessToken:", accessToken);
+            console.log(jwtDecode(userinfo.xc.id_token))
+
+
+            const axiosResponse = await axios.get(
+                'https://port-0-backend-1gksli2alpp0ksdw.sel4.cloudtype.app/api/accounts/google/login/get_id_token/',
+                {
+                    headers: {
+                        Authorization: accessToken,
+                    },
+                }
+            );
+
+            console.log("이거", axiosResponse.data);
+            localStorage.setItem('accToken', accessToken);
+            navigate('/');
+            alert('로그인되었습니다.');
+
+        } catch (error) {
+            alert('로그인에 실패했습니다.');
+            console.error(error);
+        }
     };
-
     const onFailure = (response) => {
         console.log(response);
     };
@@ -85,19 +112,20 @@ const Main = () => {
     return (
         <Background>
             <Container>
-                <GoogleOAuthProvider clientId={`${GOOGLE_REST_API_KEY}`}>
-                    <GoogleLogin
+                {/* <GoogleLogin
                         clientId={GOOGLE_REST_API_KEY}
                         text='구글아이디로 로그인하기'
                         onSuccess={onSuccess}
                         onFailure={onFailure}
-                    />
-                </GoogleOAuthProvider>
-                {/* <button onClick={handleGoogleLogin}>구글로그인</button> */}
+                    /> */}
+                <div className='title'>로그인</div>
+                <button className='googlebtn' onClick={onSuccess}>
+                    <img className='googlelogo' src={googleLogo} />
+                    구글로 시작하기
+                </button>
             </Container>
         </Background>
-    );
-
+    )
 }
 
 export default Main;

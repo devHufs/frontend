@@ -4,9 +4,11 @@ import '../../App.css';
 
 export const Container = styled.div`
     border-bottom: 1px solid lightgray;
-    height: 50px;
-    width: 100%;
+    height: 60px;
+    max-width: 1280px;
+    margin: 0 auto;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     font-family: "SUITE-Regular";
 

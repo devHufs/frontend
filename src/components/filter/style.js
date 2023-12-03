@@ -4,7 +4,8 @@ import '../../App.css';
 export const Container = styled.div`
     align-items: center;
     height: 100px;
-    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
     border-bottom: 1px solid lightgray;
     font-family: "SUITE-Regular";
 
