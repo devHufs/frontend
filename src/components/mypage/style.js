@@ -29,16 +29,9 @@ export const Right = styled.div`
 
 `
 
-export const Info = styled.div`
-    height: 200px;
-    width: 100%;
-    border-bottom: 1px solid lightgray;
-    /* background-color: black; */
-`
-
 export const Scrap = styled.div`
     height: 200px;
-    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
     padding: 10px 0px 20px 10px;
 
     .title {
@@ -95,7 +88,7 @@ export const Scrap = styled.div`
 
 export const Posts = styled.div`
     height: 200px;
-    padding: 10px;
+    padding: 10px 0px 20px 10px;
     .title {
         height: 30px;
         width: 100%;
@@ -143,3 +136,58 @@ export const Posts = styled.div`
     }
 
 `
+
+export const Info = styled.div`
+    height: 200px;
+    width: 100%;
+    border-top: 1px solid lightgray;
+    padding: 10px 0px 20px 10px;
+
+    .title {
+        height: 30px;
+        width: 100%;
+        padding-top: 5px;
+    }
+    .post {
+        height: 150px;
+        width: 200px;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+    }
+    .post {
+        height: 150px;
+        width: 200px;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        margin-right: 10px;
+    }
+    .name {
+        height: 10%;
+        padding-bottom: 20px;
+    }
+    .date {
+        font-size: 13px;
+    }
+    .up {
+        padding: 20px;
+        height: 55%;
+    }
+    .infos{
+        display: flex;
+        flex-direction: row;
+        padding: 0px 20px 0px 20px;
+        font-size: 14px;
+    }
+    .heart {
+        color: #438BFF;
+        padding: 2px 3px 0px 0px;
+    }
+    .comment {
+        color: #438BFF; 
+        padding: 2px 3px 0px 8px;
+    }
+    .scrap {
+        color: #438BFF;
+        padding-right: 3px;
+        padding: 2px 3px 0px 8px;
+    }`

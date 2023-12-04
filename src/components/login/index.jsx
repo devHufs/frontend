@@ -34,12 +34,18 @@ const Main = () => {
         gapi.load('client:auth2', start);
     }, []);
 
+    useEffect(() => {
+        handleCheckboxChange1(),
+        handleCheckboxChange2()
+
+    }, [])
+
 
     const onSuccess = async (response) => {
         console.log("credential", response);
         localStorage.clear();
 
-
+    
         try {
             const auth2 = gapi.auth2.getAuthInstance();
             const userinfo = await auth2.signIn();
@@ -71,55 +77,40 @@ const Main = () => {
             console.error(error);
         }
     };
-    const onFailure = (response) => {
-        console.log(response);
-    };
+
+    const [isChecked1, setIsChecked1] = useState(true);
+    const [isChecked2, setIsChecked2] = useState(true);
+    const [btn, setBtn] = useState(true)
 
 
-    // useEffect(() => {
-    //     const script = document.createElement('script');
-    //     // script.src = 'https://accounts.google.com/o/oauth2/v2/auth?';
-    //     script.src = 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${GOOGLE_REST_API_KEY}&redirect_uri=${`/`}'
-    //     // script.async = true;
-    //     script.onload = () => {
-    //       window.gapi.load('auth2', () => {
-    //         window.gapi.auth2.init({
-    //           client_id: GOOGLE_REST_API_KEY,
-    //         });
-    //       });
-    //     };
-    //     document.body.appendChild(script);
+    const handleCheckboxChange1 = () => {
+        setIsChecked1(!isChecked1);
+        setBtn((isChecked2===false) || (!isChecked1===false));
 
-    //     return () => {
-    //       document.body.removeChild(script);
-    //     };
-    //   }, []);
+    }
 
-    //   const handleGoogleLogin = async () => {
-    //     try {
-    //       const response = await window.gapi.auth2.getAuthInstance().signIn({
-    //         scope: 'profile email',
-    //       });
 
-    //       const accessToken = response.getAuthResponse().access_token;
-    //       console.log(response)
-    //     //   console.log('AccessToken:', accessToken);
-    //     } catch (error) {
-    //       console.error('Google login error:', error);
-    //     }
-    //   };
+const handleCheckboxChange2 = () => {
+    setIsChecked2(!isChecked2);
+    setBtn((isChecked2===false) || (!isChecked1===false));
+
+};
+
+
 
     return (
         <Background>
             <Container>
-                {/* <GoogleLogin
-                        clientId={GOOGLE_REST_API_KEY}
-                        text='구글아이디로 로그인하기'
-                        onSuccess={onSuccess}
-                        onFailure={onFailure}
-                    /> */}
                 <div className='title'>로그인</div>
-                <button className='googlebtn' onClick={onSuccess}>
+                <div className='agree'>
+                    <input type="checkbox" id='1' className='checkbox' checked={isChecked1}  onChange={handleCheckboxChange1}/>
+                    <div className='words'>deHUFS는 한국외대 재학생/졸업생을 위한 플랫폼으로, hufs.ac.kr 구글 이메일 계정으로만 로그인이 가능합니다.</div>
+                </div>
+                <div className='agree'>
+                    <input type="checkbox" id='2' className='checkbox' checked={isChecked2} onChange={handleCheckboxChange2}/>
+                    <div className='words'>devHUFS에 다음 정보를 제공하는 것에 동의합니다. (이메일, 이름, 프로필사진, 학과)</div>
+                </div>
+                <button className='googlebtn' onClick={onSuccess} disabled={btn}>
                     <img className='googlelogo' src={googleLogo} />
                     구글로 시작하기
                 </button>

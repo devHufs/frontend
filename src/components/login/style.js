@@ -8,13 +8,14 @@ export const Background = styled.div`
 `
 
 export const Container = styled.div`
-    width: 300px;
-    height: 150px;
+    width: 280px;
+    height: 220px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 15px;
     .googlebtn {
-        width: 270px;
+        width: 280px;
         height: 50px;
         background-color: #438BFF;
         border: none;
@@ -25,10 +26,23 @@ export const Container = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-top: 20px;
     }
     .title {
         height: 50px;
-        padding-top: 20px;
+        font-weight: bold;
+    }
+    .agree {
+        display: flex;
+        flex-direction: row;
+    }
+    .words {
+        font-size: 13px;
+        margin-bottom: 10px;
+        width: 270px;
+    }
+    .checkbox {
+        width: 12px;
     }
     .googlelogo {
         width: 20px;

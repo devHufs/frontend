@@ -21,30 +21,10 @@ const Main = () => {
     return (
         <Container>
             <Left>
-            <div> </div>
+                <div> </div>
 
             </Left>
             <Right>
-                <Info>
-                    {/* <img className="profile" src={BasicProfile} /> */}
-                </Info>
-                <Scrap>
-                    <div className='title'>스크랩글</div>
-                    <div className='post'>
-                        <div className='up'>
-                            <div className='name'>이력서 제목</div>
-                            <div className='date'>2023-12-01</div>
-                        </div>
-                        <div className='infos'>
-                            <FontAwesomeIcon className='heart' icon={faHeart} />
-                            <div>2</div>
-                            <FontAwesomeIcon className='comment' icon={faComment} />
-                            <div>3</div>
-                            <FontAwesomeIcon className='scrap' icon={faBookmark} />
-                            <div>1</div>
-                        </div>
-                    </div>
-                </Scrap>
                 <Posts>
                     <div className='title'>내 이력서</div>
                     <div className='boxes'>
@@ -69,6 +49,41 @@ const Main = () => {
                         </div>
                     </div>
                 </Posts>
+                <Scrap>
+                    <div className='title'>스크랩 글</div>
+                    <div className='post'>
+                        <div className='up'>
+                            <div className='name'>이력서 제목</div>
+                            <div className='date'>2023-12-01</div>
+                        </div>
+                        <div className='infos'>
+                            <FontAwesomeIcon className='heart' icon={faHeart} />
+                            <div>2</div>
+                            <FontAwesomeIcon className='comment' icon={faComment} />
+                            <div>3</div>
+                            <FontAwesomeIcon className='scrap' icon={faBookmark} />
+                            <div>1</div>
+                        </div>
+                    </div>
+                </Scrap>
+                <Info>
+                <div className='title'>댓글 단 글</div>
+                    <div className='post'>
+                        <div className='up'>
+                            <div className='name'>이력서 제목</div>
+                            <div className='date'>2023-12-01</div>
+                        </div>
+                        <div className='infos'>
+                            <FontAwesomeIcon className='heart' icon={faHeart} />
+                            <div>2</div>
+                            <FontAwesomeIcon className='comment' icon={faComment} />
+                            <div>3</div>
+                            <FontAwesomeIcon className='scrap' icon={faBookmark} />
+                            <div>1</div>
+                        </div>
+                    </div>                </Info>
+
+
             </Right>
         </Container>
     );
