@@ -14,10 +14,34 @@ export const Container = styled.div`
 `
 
 export const Left = styled.div`
-    display: flex;
-    width: 300px;
+    width: 480px;
     height: 100%;
-
+    .pictures {
+        position: relative;
+    }
+    .bigpic {
+        width: 100%;
+        height: 180px;
+        opacity: 0.5;
+    }
+    .profileimg {
+        position: absolute;
+        top: 100px; // adjust the positioning as needed
+        left: 10px; // adjust the positioning as needed
+        width: 100px; 
+        height: 100px; 
+        border-radius: 50%; // make it circular if needed
+    }
+    .name {
+        padding-top: 30px;
+        margin-left: 20px;
+        font-size: 15px;
+    }
+    .major {
+        margin-left: 20px;
+        font-size: 15px;
+        padding-top: 5px;
+    }
 `
 
 export const Right = styled.div`

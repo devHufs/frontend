@@ -27,7 +27,7 @@ const Main = () => {
     };
 
     const navigate = useNavigate();
-    const [isLoggedin, setIsloggedin] = useState(false)
+    const [isLoggedin, setIsloggedin] = useState(true)
 
     const handleLoginButtonClick = () => {
         if (isLoggedin) {
@@ -35,9 +35,8 @@ const Main = () => {
             const auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(() => {
                 console.log('User signed out.');
-                // Perform any additional cleanup or actions after sign out
             });
-            
+
             localStorage.removeItem('accToken');
             googleLogout();
             setIsloggedin(false);
@@ -61,11 +60,11 @@ const Main = () => {
         }
     };
 
-    useEffect(() => {
-        logincheck();
-        // console.log("엥",isLoggedin);
+    // useEffect(() => {
+    //     logincheck();
+    //     // console.log("엥",isLoggedin);
 
-    })
+    // })
 
     useEffect(() => {
         function start() {
@@ -90,6 +89,7 @@ const Main = () => {
                 <Link to="/mypage">
                     <img className="profile" src={BasicProfile} />
                 </Link>
+                <div className='nickname'>닉네임</div>
                 {isLoggedin ?
                     <Button className="btn" onClick={handleLoginButtonClick}>로그아웃</Button> :
                     <Button className="btn" onClick={openModal}>로그인</Button>

@@ -16,6 +16,23 @@ const Main = () => {
         navigate('/feed')
     };
 
+    const getAllfeed = async () => {
+        try {
+            const response = await axios.get('https://port-0-backend-1gksli2alpp0ksdw.sel4.cloudtype.app/home/', {
+
+            }, {       });
+            console.log('홈', response.data);
+
+        } catch (error) {
+            console.log("홈 불러오기")
+            console.error(error)
+        }
+    };
+
+    useEffect(() => {
+        getAllfeed();
+    })
+
 
 
 

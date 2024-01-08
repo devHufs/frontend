@@ -22,7 +22,12 @@ export const Container = styled.div`
     }
     .profile {
         width: 30px;
-        margin: 0px 10px 0px 10px;
+        margin: 0px 0px 0px 10px;
+    }
+    .nickname {
+        font-family: "SUITE-Regular";
+        margin: auto 20px auto 10px;
+        font-size: 14px
     }
     .btn {
         width: 80px;
@@ -30,7 +35,6 @@ export const Container = styled.div`
         border: none;
         cursor: pointer;
         font-family: "SUITE-Regular";
-
     }
 `
 
