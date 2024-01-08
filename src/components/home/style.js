@@ -19,7 +19,7 @@ margin: 0 auto;
     }
     .post {
         height: 140px;
-        width: 180px;
+        width: 190px;
         border: 1px solid lightgray;
         border-radius: 10px;
         margin: 20px 5px 20px 5px;

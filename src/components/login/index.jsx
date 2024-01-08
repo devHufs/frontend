@@ -85,14 +85,14 @@ const Main = () => {
 
     const handleCheckboxChange1 = () => {
         setIsChecked1(!isChecked1);
-        setBtn((isChecked2===false) || (!isChecked1===false));
+        setBtn((isChecked2===true) || (!isChecked1===true));
 
     }
 
 
 const handleCheckboxChange2 = () => {
     setIsChecked2(!isChecked2);
-    setBtn((isChecked2===false) || (!isChecked1===false));
+    setBtn((isChecked2===true) || (!isChecked1===true));
 
 };
 

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import BasicProfile from '../../images/BasicProfile.png';
+import BasicProfile from '../../images/profiletest.png';
+import BasicImage from '../../images/testback.png';
 import { Container, Left, Right, Info, Scrap, Posts } from './style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
@@ -21,8 +22,12 @@ const Main = () => {
     return (
         <Container>
             <Left>
-                <div> </div>
-
+                <div className='pictures'>
+                    <img className="bigpic" src={BasicImage} />
+                    <img className='profileimg' src={BasicImage} />
+                </div>
+                <div className='name'>윤서희</div>
+                <div className='major'>재학 | ELLT학과</div>
             </Left>
             <Right>
                 <Posts>
@@ -67,7 +72,7 @@ const Main = () => {
                     </div>
                 </Scrap>
                 <Info>
-                <div className='title'>댓글 단 글</div>
+                    <div className='title'>댓글 단 글</div>
                     <div className='post'>
                         <div className='up'>
                             <div className='name'>이력서 제목</div>
