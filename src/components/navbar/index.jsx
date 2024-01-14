@@ -27,7 +27,10 @@ const Main = () => {
     };
 
     const navigate = useNavigate();
-    const [isLoggedin, setIsloggedin] = useState(true)
+    const [isLoggedin, setIsloggedin] = useState(false)
+
+    const email = localStorage.getItem('email');
+
 
     const handleLoginButtonClick = () => {
         if (isLoggedin) {
@@ -38,6 +41,7 @@ const Main = () => {
             });
 
             localStorage.removeItem('accToken');
+            localStorage.removeItem('email');
             googleLogout();
             setIsloggedin(false);
             alert('로그아웃되었습니다.');
@@ -45,6 +49,17 @@ const Main = () => {
         } else {
             // 로그인 처리
             navigate("/login");
+        }
+    };
+
+    const [user, setUser] = useState([]);
+    const getUser = async () => {
+        try {
+            const response = await axios.get(`http://3.34.98.88:8000/api/accounts/user/${email}/`)
+            setUser(response.data)
+
+        } catch (error) {
+            console.error(error)
         }
     };
 
@@ -60,18 +75,17 @@ const Main = () => {
         }
     };
 
-    // useEffect(() => {
-    //     logincheck();
-    //     // console.log("엥",isLoggedin);
+    useEffect(() => {
+        logincheck();
+        getUser();
 
-    // })
+    })
 
     useEffect(() => {
         function start() {
             gapi.client.init({
                 client_id: GOOGLE_REST_API_KEY,
                 scope: 'email',
-                // redirection_uri: 'http://localhost:3000/',
             });
         }
 
@@ -86,12 +100,14 @@ const Main = () => {
                 <img className="logoimg" src={Logo} />
             </Link>
             <div className="left">
-                <Link to="/mypage">
-                    <img className="profile" src={BasicProfile} />
-                </Link>
-                <div className='nickname'>닉네임</div>
                 {isLoggedin ?
-                    <Button className="btn" onClick={handleLoginButtonClick}>로그아웃</Button> :
+                    <div className='left'>
+                        <Link to="/mypage">
+                            <img className="profile" src={user.pic.replace('/media/https%3A', 'https:/')}/>
+                        </Link>
+                        <div className='nickname'>{user.name}</div>
+                        <Button className="btn" onClick={handleLoginButtonClick}>로그아웃</Button>
+                    </div> :
                     <Button className="btn" onClick={openModal}>로그인</Button>
                 }
             </div>

@@ -19,6 +19,7 @@ export const Container = styled.div`
     .search {
         display: flex;
         margin: 10px;
+        padding: 0 10px;
     }
     .select {
         display: flex;
@@ -39,7 +40,7 @@ export const Container = styled.div`
     .recent-searches-container {
         position:absolute;
         width: 407px;
-        height: 180px;
+        max-height: 180px;
         background-color: white;
         margin-top: 35px;
         z-index: 1000;
@@ -50,12 +51,17 @@ export const Container = styled.div`
         height: 25px;
         font-size: 15px;
         padding: 8px 5px 4px 5px;
+        cursor: pointer;
     }
-    
+    .joblist {
+        /* font-family: "SUITE-Regular"; */
+
+    }
 `
 
 export const Inputbox = styled.input`
     width: 400px;
     height: 30px;
     z-index: 2000;
+    border: 2px solid #cccccc;
 `

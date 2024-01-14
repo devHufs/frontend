@@ -77,7 +77,7 @@ export const Maininput = styled.textarea.attrs({ maxLength: 500 })`
     height: 140px; /* 높이 설정 */
     width: 100%; 
     margin: 1% 0% 1% 0%;
-    padding: 20px 20px 0px 20px;
+    padding: 20px 20px 20px 20px;
     white-space: pre-wrap; /* 줄 바꿈 관련 */
     word-wrap: break-word; 
     overflow-wrap: break-word;

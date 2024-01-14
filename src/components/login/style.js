@@ -35,11 +35,12 @@ export const Container = styled.div`
     .agree {
         display: flex;
         flex-direction: row;
+        
     }
     .words {
         font-size: 13px;
-        margin-bottom: 10px;
-        width: 270px;
+        margin: 10px;
+        width: 240px;
     }
     .checkbox {
         width: 12px;
