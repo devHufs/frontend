@@ -24,7 +24,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/write" element={<Write />} />
-          <Route path="feed" element={<Feed/>}/>
+          <Route path="/feed" element={<Feed/>}/>
         </Routes>
       </GoogleOAuthProvider>
 
