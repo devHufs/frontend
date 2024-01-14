@@ -7,6 +7,7 @@ import BasicImage from '../../images/testback.png';
 import { Container, Left, Right, Info, Scrap, Posts } from './style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import Upload from '../../images/Upload.png'
 
 
 
@@ -49,7 +50,8 @@ const Main = () => {
                         </div>
                         <div className='post' onClick={Towrite}>
                             <div className='up'>
-                                <div className='name'>이력서 작성하기</div>
+                                <img className='upload' src={Upload}/>
+                                <div className='more'>이력서 작성하기</div>
                             </div>
                         </div>
                     </div>

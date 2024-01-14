@@ -68,12 +68,6 @@ export const Scrap = styled.div`
         width: 200px;
         border: 1px solid lightgray;
         border-radius: 10px;
-    }
-    .post {
-        height: 150px;
-        width: 200px;
-        border: 1px solid lightgray;
-        border-radius: 10px;
         margin-right: 10px;
     }
     .name {
@@ -132,12 +126,23 @@ export const Posts = styled.div`
         height: 10%;
         padding-bottom: 20px;
     }
+    .upload {
+        width: 40px;
+        padding: 10px;
+        display: flex;
+        margin: auto auto;
+    }
+    .more {
+        padding-left: 25px;
+        color: gray;
+    }
     .date {
         font-size: 13px;
     }
     .up {
         padding: 20px;
         height: 55%;
+        cursor: pointer;
     }
     .infos{
         display: flex;
