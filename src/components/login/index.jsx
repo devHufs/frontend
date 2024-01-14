@@ -54,12 +54,15 @@ const Main = () => {
 
             // const accessToken = gapi.auth.getToken();
             const accessToken = userinfo.xc.access_token;
-            console.log("accessToken:", accessToken);
-            console.log(jwtDecode(userinfo.xc.id_token))
+            // console.log("accessToken:", accessToken);
+            // console.log("id_token", userinfo.xc.id_token)
+            console.log("토큰 디코드하면", jwtDecode(userinfo.xc.id_token))
+            const email = jwtDecode(userinfo.xc.id_token).email;
+            console.log(email);
 
 
             const axiosResponse = await axios.get(
-                'https://port-0-backend-1gksli2alpp0ksdw.sel4.cloudtype.app/api/accounts/google/login/get_id_token/',
+                'http://3.34.98.88:8000/api/accounts/google/login/get_id_token/',
                 {
                     headers: {
                         Authorization: accessToken,
@@ -67,8 +70,9 @@ const Main = () => {
                 }
             );
 
-            console.log("이거", axiosResponse.data);
+            console.log("이거", axiosResponse);
             localStorage.setItem('accToken', accessToken);
+            localStorage.setItem('email', email);
             navigate('/');
             alert('로그인되었습니다.');
 
@@ -104,7 +108,7 @@ const handleCheckboxChange2 = () => {
                 <div className='title'>로그인</div>
                 <div className='agree'>
                     <input type="checkbox" id='1' className='checkbox' checked={isChecked1}  onChange={handleCheckboxChange1}/>
-                    <div className='words'>deHUFS는 한국외대 재학생/졸업생을 위한 플랫폼으로, hufs.ac.kr 구글 이메일 계정으로만 로그인이 가능합니다.</div>
+                    <div className='words'>devHUFS는 한국외대 재학생 / 졸업생을 위한 플랫폼으로, hufs.ac.kr 구글 이메일 계정으로만 로그인이 가능합니다.</div>
                 </div>
                 <div className='agree'>
                     <input type="checkbox" id='2' className='checkbox' checked={isChecked2} onChange={handleCheckboxChange2}/>

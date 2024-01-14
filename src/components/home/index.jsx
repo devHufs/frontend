@@ -8,20 +8,24 @@ import { faHeart, faComment, faBookmark } from '@fortawesome/free-solid-svg-icon
 import Filter from '../filter';
 import BasicProfile from '../../images/BasicProfile.png';
 
+
+
 const Main = () => {
 
     const navigate = useNavigate();
 
-    const Tofeed = () => {
-        navigate('/feed')
+    const Tofeed = (postId) => {
+        navigate(`/feed`, {state: {id: postId}});
     };
+
+    const [data, setData] = useState([])
 
     const getAllfeed = async () => {
         try {
-            const response = await axios.get('https://port-0-backend-1gksli2alpp0ksdw.sel4.cloudtype.app/home/', {
+            const response = await axios.get('http://3.34.98.88:8000/home/')
+            // console.log('홈', response.data);
+            setData(response.data)
 
-            }, {       });
-            console.log('홈', response.data);
 
         } catch (error) {
             console.log("홈 불러오기")
@@ -34,128 +38,35 @@ const Main = () => {
     })
 
 
-
-
     return (
         <div>
             <Filter />
             <Container>
-                <Posts onClick={Tofeed}>
-                    <div className='boxes'>
-                        <div className='post'>
-                            <div className='profile'>
-                                <img className="profilepic" src={BasicProfile} />
-                                <div className='name'>작성자1</div>
-                            </div>
+                {data.map((item) => (
+                    <Posts onClick={() => Tofeed(item.id)}>
+                        <div className='boxes'>
+                            <div className='post'>
+                                <div className='profile'>
+                                    <img className="profilepic" src="https://lh3.googleusercontent.com/a/ACg8ocJkkqCnzfZ5vzWqtMT-L2cddT4Me4fgX6qTHI_N4LRr=s96-c" />
+                                    <div className='name'>작성자1</div>
+                                </div>
 
-                            <div className='up'>
-                                <div className='name'>이력서 제목1</div>
-                                <div className='date'>2023-12-01</div>
-                            </div>
-                            <div className='infos'>
-                                <FontAwesomeIcon className='heart' icon={faHeart} />
-                                <div>2</div>
-                                <FontAwesomeIcon className='comment' icon={faComment} />
-                                <div>3</div>
-                                <FontAwesomeIcon className='scrap' icon={faBookmark} />
-                                <div>1</div>
+                                <div className='up'>
+                                    <div className='name'>{item.title}</div>
+                                    <div className='date'>{new Date(item.date).toISOString().slice(0, 10)}</div>
+                                </div>
+                                <div className='infos'>
+                                    <FontAwesomeIcon className='heart' icon={faHeart} />
+                                    <div>{item.like_cnt}</div>
+                                    <FontAwesomeIcon className='comment' icon={faComment} />
+                                    <div>{item.comment_cnt}</div>
+                                    <FontAwesomeIcon className='scrap' icon={faBookmark} />
+                                    <div>{item.scrap_cnt}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Posts>
-
-                <Posts onClick={Tofeed}>
-                    <div className='boxes'>
-                        <div className='post'>
-                            <div className='profile'>
-                                <img className="profilepic" src={BasicProfile} />
-                                <div className='name'>작성자2</div>
-                            </div>
-
-                            <div className='up'>
-                                <div className='name'>이력서 제목2</div>
-                                <div className='date'>2023-12-02</div>
-                            </div>
-                            <div className='infos'>
-                                <FontAwesomeIcon className='heart' icon={faHeart} />
-                                <div>2</div>
-                                <FontAwesomeIcon className='comment' icon={faComment} />
-                                <div>3</div>
-                                <FontAwesomeIcon className='scrap' icon={faBookmark} />
-                                <div>1</div>
-                            </div>
-                        </div>
-                    </div>
-                </Posts>
-                <Posts onClick={Tofeed}>
-                    <div className='boxes'>
-                        <div className='post'>
-                            <div className='profile'>
-                                <img className="profilepic" src={BasicProfile} />
-                                <div className='name'>작성자3</div>
-                            </div>
-
-                            <div className='up'>
-                                <div className='name'>이력서 제목3</div>
-                                <div className='date'>2023-12-03</div>
-                            </div>
-                            <div className='infos'>
-                                <FontAwesomeIcon className='heart' icon={faHeart} />
-                                <div>2</div>
-                                <FontAwesomeIcon className='comment' icon={faComment} />
-                                <div>3</div>
-                                <FontAwesomeIcon className='scrap' icon={faBookmark} />
-                                <div>1</div>
-                            </div>
-                        </div>
-                    </div>
-                </Posts>
-                <Posts onClick={Tofeed}>
-                    <div className='boxes'>
-                        <div className='post'>
-                            <div className='profile'>
-                                <img className="profilepic" src={BasicProfile} />
-                                <div className='name'>작성자4</div>
-                            </div>
-
-                            <div className='up'>
-                                <div className='name'>이력서 제목4</div>
-                                <div className='date'>2023-12-04</div>
-                            </div>
-                            <div className='infos'>
-                                <FontAwesomeIcon className='heart' icon={faHeart} />
-                                <div>2</div>
-                                <FontAwesomeIcon className='comment' icon={faComment} />
-                                <div>3</div>
-                                <FontAwesomeIcon className='scrap' icon={faBookmark} />
-                                <div>1</div>
-                            </div>
-                        </div>
-                    </div>
-                </Posts>
-                <Posts onClick={Tofeed}>
-                    <div className='boxes'>
-                        <div className='post'>
-                            <div className='profile'>
-                                <img className="profilepic" src={BasicProfile} />
-                                <div className='name'>작성자5</div>
-                            </div>
-
-                            <div className='up'>
-                                <div className='name'>이력서 제목5</div>
-                                <div className='date'>2023-12-05</div>
-                            </div>
-                            <div className='infos'>
-                                <FontAwesomeIcon className='heart' icon={faHeart} />
-                                <div>2</div>
-                                <FontAwesomeIcon className='comment' icon={faComment} />
-                                <div>3</div>
-                                <FontAwesomeIcon className='scrap' icon={faBookmark} />
-                                <div>1</div>
-                            </div>
-                        </div>
-                    </div>
-                </Posts>
+                    </Posts>
+                ))}
 
             </Container>
         </div>

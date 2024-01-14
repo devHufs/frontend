@@ -130,38 +130,15 @@ const Main = () => {
 
     const postfeed = async () => {
         const formData = new FormData();
-        // const formTitle = new FormData();
-        // const formContent = new FormData();
-        // const formFile = new FormData();
-
-        // formTitle.append('title', title);
-        // formContent.append('body', content);
-        // formFile.append('attached', file);
 
         formData.append('title', title);
         formData.append('body', content);
         formData.append('attached', file);
 
-        // for (const [name, value] of formFile.entries()) {
-        //     console.log(`${name}: ${value}`);
-        // }
-
         try {
-            const response = await axios.post('https://port-0-backend-1gksli2alpp0ksdw.sel4.cloudtype.app/home/create/', {
-                // formTitle,
-                // formContent,
-                // formFile
-                formData,
-            }, {
+            const response = await axios.post('http://3.34.98.88:8000/home/create/',  formData  , {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    // 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
-                    // 'Content-Length' : '<calculated when request is sent>',
-                    // 'Host' : '<calculated when request is sent>',
-                    // 'User-Agent' : 'PostmanRuntime/7.35.0',
-                    // 'Accept' : '*/*',
-                    // 'Accept-Encoding' : 'gzip, deflate, br',
-                    // 'Connection' : 'keep-alive'
                 }
             });
             console.log(response.data);
@@ -171,19 +148,13 @@ const Main = () => {
 
         } catch (error) {
             alert('업로드에 실패했습니다.')
-            console.error(error)
-            // Optionally, check if the error has a response
             if (error.response) {
-                // The request was made, but the server responded with a status code
-                // that falls out of the range of 2xx
                 console.log('Response data:', error.response.data);
                 console.log('Response status:', error.response.status);
                 console.log('Response headers:', error.response.headers);
             } else if (error.request) {
-                // The request was made but no response was received
                 console.log('No response received:', error.request);
             } else {
-                // Something happened in setting up the request that triggered an Error
                 console.log('Error during request setup:', error.message);
             }
         }

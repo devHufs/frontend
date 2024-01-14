@@ -23,6 +23,7 @@ export const Container = styled.div`
     .profile {
         width: 30px;
         margin: 0px 0px 0px 10px;
+        border-radius: 50%;
     }
     .nickname {
         font-family: "SUITE-Regular";

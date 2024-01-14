@@ -4,16 +4,15 @@ import '../../App.css';
 export const Container = styled.div`
     height: 100%;
     max-width: 1280px;
-    margin: 0 auto;
+    margin: auto; 
     display: flex;
     font-family: "SUITE-Regular";
-    .profile {
-        width: 50px;
-    }
+    justify-items: center;
+    flex-wrap: wrap;
 `
 
 export const Posts = styled.div`
-margin: 0 auto; 
+
    .boxes {
         display: flex;
     }
@@ -22,7 +21,7 @@ margin: 0 auto;
         width: 190px;
         border: 1px solid lightgray;
         border-radius: 10px;
-        margin: 20px 5px 20px 5px;
+        margin: 20px 10px 10px 10px;
         padding: 20px;
     }
     .profile {
@@ -37,6 +36,7 @@ margin: 0 auto;
         width: 30px;
         height: 30px;
         margin-right: 5px;
+        border-radius: 50%;
     }
     .name {
         width: 100%;
@@ -60,16 +60,15 @@ margin: 0 auto;
     }
     .heart {
         color: #438BFF;
-        padding: 2px 3px 0px 0px;
+        padding: 1px 3px 1px 0px;
     }
     .comment {
         color: #438BFF; 
-        padding: 2px 3px 0px 8px;
+        padding: 1px 3px 1px 8px;
     }
     .scrap {
         color: #438BFF;
-        padding-right: 3px;
-        padding: 2px 3px 0px 8px;
+        padding: 1px 3px 1px 8px;
     }
 
 `
