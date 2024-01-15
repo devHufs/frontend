@@ -28,7 +28,8 @@ export const Container = styled.div`
     .nickname {
         font-family: "SUITE-Regular";
         margin: auto 20px auto 10px;
-        font-size: 14px
+        font-size: 14px;
+        cursor: pointer;
     }
     .btn {
         width: 80px;
