@@ -23,6 +23,7 @@ export const Posts = styled.div`
         border-radius: 10px;
         margin: 20px 10px 10px 10px;
         padding: 20px;
+        cursor: pointer;
     }
     .profile {
         height: 30px;

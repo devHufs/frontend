@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './components/home';
 import Navbar from './components/navbar';
 import Login from './components/login';
-import Signup from './components/signup';
+import Edit from './components/edit';
 import Mypage from './components/mypage';
 import Write from './components/write';
 import Feed from './components/feed';
@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route exact path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/edit" element={<Edit />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/write" element={<Write />} />
           <Route path="/feed" element={<Feed/>}/>

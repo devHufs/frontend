@@ -15,6 +15,11 @@ const Main = () => {
 
     const GOOGLE_REST_API_KEY = '599604728211-k4rpa2hff5vv52l7d8hf0cqdjh5bf4fa.apps.googleusercontent.com'
 
+    const Tomypage = () => {
+        navigate('/mypage')
+    };
+
+
     let [modal, setModal] = useState(false);
     const openModal = () => {
         setModal(!modal);
@@ -42,7 +47,7 @@ const Main = () => {
 
             localStorage.removeItem('accToken');
             localStorage.removeItem('email');
-            googleLogout();
+            // googleLogout();
             setIsloggedin(false);
             alert('로그아웃되었습니다.');
 
@@ -53,13 +58,17 @@ const Main = () => {
     };
 
     const [user, setUser] = useState([]);
+    const [img, setImg] = useState("")
+
     const getUser = async () => {
         try {
-            const response = await axios.get(`http://3.34.98.88:8000/api/accounts/user/${email}/`)
+            const response = await axios.get(`http://13.209.7.109:8000/api/accounts/user/${email}/`)
             setUser(response.data)
+            setImg(response.data.pic.replace('/media/https%3A', 'https:/'))
+            // console.log(user)
 
         } catch (error) {
-            console.error(error)
+            console.error('유저 정보', error)
         }
     };
 
@@ -103,9 +112,10 @@ const Main = () => {
                 {isLoggedin ?
                     <div className='left'>
                         <Link to="/mypage">
-                            <img className="profile" src={user.pic.replace('/media/https%3A', 'https:/')}/>
+                            {/* <img className="profile" src={user.pic.replace('/media/https%3A', 'https:/')}/> */}
+                            <img className="profile" src={img} />
                         </Link>
-                        <div className='nickname'>{user.name}</div>
+                        <div className='nickname' onClick={Tomypage}>{user.name}</div>
                         <Button className="btn" onClick={handleLoginButtonClick}>로그아웃</Button>
                     </div> :
                     <Button className="btn" onClick={openModal}>로그인</Button>

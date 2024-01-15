@@ -14,7 +14,7 @@ export const Container = styled.div`
 `
 
 export const Left = styled.div`
-    width: 480px;
+    width: 400px;
     height: 100%;
     .pictures {
         position: relative;
@@ -35,7 +35,9 @@ export const Left = styled.div`
     .name {
         padding-top: 30px;
         margin-left: 20px;
+        margin-bottom: 15px;
         font-size: 15px;
+        font-weight: bold;
     }
     .major {
         margin-left: 20px;
@@ -47,7 +49,7 @@ export const Left = styled.div`
 export const Right = styled.div`
     display: flex;
     flex-direction: column;
-    width: 800px;
+    width: 880px;
     border-left: 1px solid lightgray;
     height: 100%;
 
@@ -70,12 +72,25 @@ export const Scrap = styled.div`
         border-radius: 10px;
         margin-right: 10px;
     }
+    .user {
+        display: flex;
+    }
+    .img {
+        width: 25px;
+        border-radius: 50%;
+    }
+    .username {
+        font-size: 13px;
+        padding-left: 5px;
+        padding-top: 5px;
+    }
     .name {
         height: 10%;
-        padding-bottom: 20px;
+        padding: 10px 0 20px 0;
+        font-size: 15px;
     }
     .date {
-        font-size: 13px;
+        font-size: 11px;
     }
     .up {
         padding: 20px;
@@ -163,7 +178,15 @@ export const Posts = styled.div`
         padding-right: 3px;
         padding: 2px 3px 0px 8px;
     }
-
+    .edit {
+        padding: 0 5px 0 17px;
+        border-right: solid 1px #cccccc;
+        cursor: pointer;
+    }
+    .delete {
+        padding-left: 5px;
+        cursor: pointer;
+    }
 `
 
 export const Info = styled.div`
@@ -182,20 +205,27 @@ export const Info = styled.div`
         width: 200px;
         border: 1px solid lightgray;
         border-radius: 10px;
-    }
-    .post {
-        height: 150px;
-        width: 200px;
-        border: 1px solid lightgray;
-        border-radius: 10px;
         margin-right: 10px;
+    }
+    .user {
+        display: flex;
+    }
+    .img {
+        width: 25px;
+        border-radius: 50%;
+    }
+    .username {
+        font-size: 13px;
+        padding-left: 5px;
+        padding-top: 5px;
     }
     .name {
         height: 10%;
-        padding-bottom: 20px;
+        padding: 10px 0 20px 0;
+        font-size: 15px;
     }
     .date {
-        font-size: 13px;
+        font-size: 11px;
     }
     .up {
         padding: 20px;

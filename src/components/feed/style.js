@@ -52,16 +52,42 @@ export const Top = styled.div`
         font-size: 30px;
         max-height: 50%;
         width: 100%;
-        padding: 30px 0 0 0;
+        padding: 30px 0 0 10px;
     }
     .info {
         max-height: 50%;
         width: 100%;
-        padding: 20px 0 20px 0;
+        padding: 10px 0 0px 0;
+        display: flex;
 
     }
     .profile {
         width: 30px;
+        height: 30px;
+        padding: 10px 10px;
+    }
+    .names {
+        padding: 5px 5px;
+    }
+    .name {
+        font-size: 15px;
+    }
+    .job {
+        font-size: 13px;
+        padding-top: 3px;
+    }
+    .stacks {
+        position: relative;
+    }
+    .stack {
+        font-size: 13px;
+        background-color: #f0f0f0;
+        height: 20px;
+        padding: 1px 5px 0px 5px;
+        border-radius: 10px;
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
     }
     .right {
         max-height: 100%;
@@ -85,7 +111,7 @@ export const Top = styled.div`
     }
     .heartnum {
         font-size: 13px;
-        padding: 0 5px;
+        padding: 0 10px;
     }
     .scrap {
         width: 15px;
@@ -138,6 +164,11 @@ export const Content = styled.div`
         font-size: 10px;
         border: none;
         cursor: pointer;
+    }
+    .content {
+        margin: 40px 20px;
+        max-height: 100%;
+
     }
 `
 

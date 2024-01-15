@@ -18,13 +18,14 @@ const Main = () => {
         navigate(`/feed`, {state: {id: postId}});
     };
 
-    const [data, setData] = useState([])
+    const [allfeed, setAllfeed] = useState([])
 
     const getAllfeed = async () => {
         try {
-            const response = await axios.get('http://3.34.98.88:8000/home/')
+            const response = await axios.get('http://13.209.7.109:8000/home/')
             // console.log('홈', response.data);
-            setData(response.data)
+            setAllfeed(response.data)
+            console.log("전체 글", response.data)
 
 
         } catch (error) {
@@ -35,14 +36,14 @@ const Main = () => {
 
     useEffect(() => {
         getAllfeed();
-    })
+    }, [])
 
 
     return (
         <div>
             <Filter />
             <Container>
-                {data.map((item) => (
+                {allfeed.map((item) => (
                     <Posts onClick={() => Tofeed(item.id)}>
                         <div className='boxes'>
                             <div className='post'>
