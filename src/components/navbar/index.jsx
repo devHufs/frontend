@@ -66,6 +66,8 @@ const Main = () => {
             setUser(response.data)
             setImg(response.data.pic.replace('/media/https%3A', 'https:/'))
             // console.log(user)
+            localStorage.setItem('userid', user.user_id);
+
 
         } catch (error) {
             console.error('유저 정보', error)

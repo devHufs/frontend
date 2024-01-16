@@ -48,8 +48,8 @@ const Main = () => {
                         <div className='boxes'>
                             <div className='post'>
                                 <div className='profile'>
-                                    <img className="profilepic" src="https://lh3.googleusercontent.com/a/ACg8ocJkkqCnzfZ5vzWqtMT-L2cddT4Me4fgX6qTHI_N4LRr=s96-c" />
-                                    <div className='name'>작성자1</div>
+                                    <img className="profilepic" src={item.user_profile.pic.replace('/media/https%3A', 'https:/')} />
+                                    <div className='name'>{item.user_profile.name.split('[')[0].trim()}</div>
                                 </div>
 
                                 <div className='up'>
