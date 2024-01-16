@@ -6,7 +6,7 @@ export const Container = styled.div`
     //align-items: center;
     flex-direction: column;
     width: 50%;
-    height: 100%;
+    /* height: 100%; */
     //background-color: #fff;
     margin: 0 auto; 
     //min-height: 100vh;
@@ -119,7 +119,7 @@ export const DropDownBox = styled.ul`
 `
 
 export const DropDownItem = styled.li`
-  padding: 0 16px;
+  padding: 3px 16px;
   cursor: pointer;
 
   &.selected {

@@ -38,25 +38,41 @@ const Main = () => {
     const [isScrap, setIsSrcap] = useState(false);
 
     const [feed, setFeed] = useState([]);
+    const [img, setImg] = useState("")
+    const [name, setName] = useState("")
+    const [stacks, setStacks] = useState([])
+    const [formattedDate, setFormattedDate] = useState("")
 
     const getfeed = async () => {
 
         try {
             const response = await axios.get(`http://13.209.7.109:8000/home/${id}/`);
             setFeed(response.data)
+            setImg(response.data.user_profile.pic.replace('/media/https%3A', 'https:/'))
+            setName(response.data.user_profile.name)
+            setStacks(response.data.stack)
             console.log("개별 글", response.data);
+
+            const dateObject = new Date(response.data.date);
+            const year = dateObject.getFullYear();
+            const month = dateObject.getMonth() + 1; // Months are zero-based, so we add 1
+            const day = dateObject.getDate();
+
+            setFormattedDate(`${year}년 ${month}월 ${day}일 작성`)
 
         } catch (error) {
             console.log(error);
         }
     };
-    
+
     const useremail = localStorage.getItem('email')
+    const userid = localStorage.getItem('userid')
+
 
     const putheart = async () => {
 
         try {
-            const response = await axios.post(`http://13.209.7.109:8000/home/${id}/like/${useremail}/`);
+            const response = await axios.post(`http://13.209.7.109:8000/home/${id}/like/${userid}/`);
             console.log(response);
             setIsHeart(!isHeart);
 
@@ -68,7 +84,7 @@ const Main = () => {
     const putscrap = async () => {
 
         try {
-            const response = await axios.post(`http://13.209.7.109:8000/home/${id}/scrap/${useremail}/`);
+            const response = await axios.post(`http://13.209.7.109:8000/home/${id}/scrap/${userid}/`);
             console.log(response);
             setIsSrcap(!isScrap);
 
@@ -81,7 +97,7 @@ const Main = () => {
     useEffect(() => {
         getfeed();
         getComment();
-    }, [])
+    })
 
     const handlePreviewClick = () => {
         setPdfSrc(TestPdf);
@@ -99,13 +115,80 @@ const Main = () => {
 
         try {
             const response = await axios.get(`http://13.209.7.109:8000/home/${id}/comment/`);
-            console.log(response.data);
+            console.log('댓글', response.data);
+            
             setComment(response.data)
 
         } catch (error) {
-            console.log(error);
+            console.log('댓글', error);
         }
     }
+
+    const [text, setText] = useState("");
+
+    const onChangeText = (e) => {
+        setText(e.target.value)
+    }
+
+    const postfeed = async () => {
+        const postData = {
+            'body': text
+        };
+
+        try {
+            const response = await axios.post(`http://13.209.7.109:8000/home/${id}/comment/create/${userid}/`, postData, {
+
+            });
+            console.log(response.data);
+
+        } catch (error) {
+            if (error.response) {
+                console.log('Response data:', error.response.data);
+                console.log('Response status:', error.response.status);
+                console.log('Response headers:', error.response.headers);
+            } else if (error.request) {
+                console.log('No response received:', error.request);
+            } else {
+                console.log('Error during request setup:', error.message);
+            }
+        }
+
+    };
+
+    const deleteComment = async (comment_id) => {
+
+        try {
+            const response = await axios.delete(`http://13.209.7.109:8000/home/${id}/comment/${comment_id}/`);
+            console.log('댓글', response);
+            setComment(response.data)
+
+        } catch (error) {
+            console.log('댓글', error);
+        }
+    }
+
+
+    const formatDate = (inputDate) => {
+        const dateObject = new Date(inputDate);
+        
+        const year = dateObject.getFullYear();
+        const month = dateObject.getMonth() + 1; // Months are zero-based, so we add 1
+        const day = dateObject.getDate();
+        const hours = dateObject.getHours();
+        const minutes = dateObject.getMinutes();
+        
+        const monthString = `${month}월`;
+        
+        const dayString = `${day}일`;
+        
+        const period = hours >= 12 ? '오후' : '오전';
+        
+        const hours12 = hours % 12 || 12;
+        
+        const formattedDate = `${monthString} ${dayString} ${period} ${hours12}시 ${minutes}분`;
+        
+        return formattedDate;
+      };
 
 
     return (
@@ -116,43 +199,46 @@ const Main = () => {
                         {feed.title}
                     </div>
                     <div className='info'>
-                        <img className='profile' src={BasicProfile} />
+                        <img className='profile' src={img} />
                         <div className='names'>
-                            <div className='name'>윤서희</div>
+                            <div className='name'>{name.split('[')[0].trim()}</div>
                             <div className='job'>{feed.job}</div>
                         </div>
-                        <div className='stacks'>
-                            <div className='stack'>Javascript</div>
-                        </div>
+                        {stacks.map((stack, index) => (
+                            <div className='stacks' key={index}>
+                                <div className='stack'>{stack}</div>
+                            </div>
+                        ))}
+
                     </div>
                 </div>
                 <div className='right'>
                     <div className='top'>
                         {isHeart ? (
                             <div className='heart'>
-                                <img className='heartimg' src={FullHeart} onClick={putheart}/>
+                                <img className='heartimg' src={FullHeart} onClick={putheart} />
                                 <div className='heartnum'>{feed.like_cnt}</div>
                             </div>) : (
                             <div className='heart'>
-                                <img className='heartimg' src={EmptyHeart} onClick={putheart}/>
+                                <img className='heartimg' src={EmptyHeart} onClick={putheart} />
                                 <div className='heartnum'>{feed.like_cnt}</div>
                             </div>
 
                         )}
                         {isScrap ? (
                             <div className='scrap'>
-                                <img className='scrapimg' src={FullScrap} onClick={putscrap}/>
+                                <img className='scrapimg' src={FullScrap} onClick={putscrap} />
                                 <div className='scrapnum'>{feed.scrap_cnt}</div>
                             </div>) : (
                             <div className='scrap'>
-                                <img className='scrapimg' src={EmptyScrap} onClick={putscrap}/>
+                                <img className='scrapimg' src={EmptyScrap} onClick={putscrap} />
                                 <div className='scrapnum'>{feed.scrap_cnt}</div>
                             </div>
                         )}
                     </div>
                     <div className='down'>
                         <div className='date'>
-                            2024년 1월 8일 작성
+                            {formattedDate}
                         </div>
                     </div>
                 </div>
@@ -181,21 +267,24 @@ const Main = () => {
                 </div>
                 <div className='input'>
                     <input
+                        onChange={onChangeText}
                         className='inputbox'
                         placeholder='댓글을 입력하세요.'
+                        value={text}
                     />
-                    <button className='inputbtn'>작성</button>
+                    <button className='inputbtn' onClick={postfeed}>작성</button>
                 </div>
                 {comment.map((item) => (
-                <div className='comments'>
-                    <div className='top'>
-                        <div className='name'>이채영</div>
-                        <div className='date'>1월 8일 오전 11시 30분</div>
+                    <div className='comments'>
+                        <div className='top'>
+                            <div className='name'>{item.user_profile.name}</div>
+                            <div className='date'>{formatDate(item.date)}</div>
+                            <div className='delete'onClick={() => deleteComment(item.id)}>삭제</div>
+                        </div>
+                        <div className='bottom'>
+                            {item.body}
+                        </div>
                     </div>
-                    <div className='bottom'>
-                        {item.body}
-                    </div>
-                </div>
                 ))}
             </Comment>
         </Container>

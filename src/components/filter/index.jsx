@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Container, Inputbox } from './style';
 import { Button } from '@mui/base/Button';
-
+import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
@@ -12,14 +12,14 @@ import Select from '@mui/material/Select';
 
 const Filter = () => {
 
-    const MenuProps = {
-        PaperProps: {
-            style: {
-                maxHeight: 200,
-                width: 150,
-            },
-        },
-    };
+    // const MenuProps = {
+    //     PaperProps: {
+    //         style: {
+    //             maxHeight: 200,
+    //             width: 150,
+    //         },
+    //     },
+    // };
 
     const [job, setJob] = useState([]);
     const [stack, setStack] = useState([]);
@@ -32,6 +32,7 @@ const Filter = () => {
         setJob(
             typeof value === 'string' ? value.split(',') : value,
         );
+        console.log(job)
     };
 
 
@@ -78,19 +79,19 @@ const Filter = () => {
 
     const handleClick = (selectedSearch) => {
         setInputword(selectedSearch);
-    
+
         const storedData = JSON.parse(localStorage.getItem('recentSearches')) || [];
         setData((data) => {
-          const newData = data.length < 5 ? [...data, selectedSearch] : [...data.slice(1), selectedSearch];
-          localStorage.setItem('recentSearches', JSON.stringify(newData));
-          console.log(JSON.parse(localStorage.getItem('recentSearches')))
-          return newData;
+            const newData = data.length < 5 ? [...data, selectedSearch] : [...data.slice(1), selectedSearch];
+            localStorage.setItem('recentSearches', JSON.stringify(newData));
+            console.log(JSON.parse(localStorage.getItem('recentSearches')))
+            return newData;
         });
-    
-        setShowRecentSearches(false); // Close the recent searches container
-      };
 
-    
+        setShowRecentSearches(false); // Close the recent searches container
+    };
+
+
 
     const bringRecentSearches = () => {
         const storedData = JSON.parse(localStorage.getItem('recentSearches')) || [];
@@ -150,58 +151,76 @@ const Filter = () => {
 
                 {showRecentSearches && (
                     <div className='recent-searches-container'>
-                            <div>
-                                {data.map((search, index) => (
-                                    <div key={index} className='recent-searches' onClick={() => handleClick(search)}>
-                                        {search}
-                                    </div>
-                                ))}
-                            </div>
+                        <div>
+                            {data.map((search, index) => (
+                                <div key={index} className='recent-searches' onClick={() => handleClick(search)}>
+                                    {search}
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 )}
             </div>
             <div className='select'>
                 <Select
                     className="checkbox"
-                    multiple
+                    // multiple
                     value={job}
+                    displayEmpty
+                    renderValue={(v) => (v?.length ? v : '직무')}
                     onChange={handleChangeJob}
-                    MenuProps={MenuProps}
+                    sx={{ fontSize: '13px', paddingTop: '2px' }}
+                // MenuProps={MenuProps}
                 >
-                    <MenuItem disabled value="">
+                    <MenuItem disabled value="" sx={{ fontSize: '13px', paddingTop: '2px' }}>
                         <em>직무</em>
                     </MenuItem>
-                    <MenuItem value="프론트엔드">프론트엔드</MenuItem>
-                    <MenuItem value="백엔드">백엔드</MenuItem>
-                    <MenuItem value="데이터사이언스">데이터사이언스</MenuItem>
+                    <MenuItem sx={{ fontSize: '13px', paddingTop: '2px' }}
+                        value="프론트엔드">프론트엔드</MenuItem>
+                    <MenuItem sx={{ fontSize: '13px', paddingTop: '2px' }}
+                        value="백엔드">백엔드</MenuItem>
+                    <MenuItem sx={{ fontSize: '13px', paddingTop: '2px' }}
+                        value="데이터사이언스">데이터사이언스</MenuItem>
                 </Select>
                 <Select
                     className="checkbox"
-                    multiple
+                    // multiple
                     value={stack}
                     onChange={handleChangeStack}
-                    inputProps={{ 'aria-label': 'Without label' }}
-                    MenuProps={MenuProps}
+                    displayEmpty
+                    renderValue={(v) => (v?.length ? v : '기술스택')}
+                    // inputProps={{ 'aria-label': 'Without label' }}
+                    sx={{ fontSize: '13px', paddingTop: '2px' }}
+                // MenuProps={MenuProps}
                 >
-                    <MenuItem disabled value="">
+                    <MenuItem disabled value="" sx={{ fontSize: '13px', paddingTop: '2px' }}>
                         기술스택
                     </MenuItem>
-                    <MenuItem value="자바스크립트">자바스크립트</MenuItem>
-                    <MenuItem value="파이썬">파이썬</MenuItem>
-                    <MenuItem value="자바">자바</MenuItem>
+                    <MenuItem sx={{ fontSize: '13px', paddingTop: '2px' }}
+                        value="자바스크립트">자바스크립트</MenuItem>
+                    <MenuItem sx={{ fontSize: '13px', paddingTop: '2px' }}
+                        value="파이썬">파이썬</MenuItem>
+                    <MenuItem sx={{ fontSize: '13px', paddingTop: '2px' }}
+                        value="자바">자바</MenuItem>
                 </Select>
                 <Select
                     className="checkbox"
                     value={order}
+                    displayEmpty
+                    renderValue={(v) => (v?.length ? v : '정렬')}
+                    sx={{ fontSize: '13px', paddingTop: '2px' }}
                     onChange={handleChangeOrder}
-                    MenuProps={MenuProps}
+                // MenuProps={MenuProps}
                 >
-                    <MenuItem disabled value="">
+                    <MenuItem disabled value="" sx={{ fontSize: '13px', paddingTop: '2px' }}>
                         <em>정렬</em>
                     </MenuItem>
-                    <MenuItem value="최신순">최신순</MenuItem>
-                    <MenuItem value="좋아요 많은순">좋아요 많은순</MenuItem>
-                    <MenuItem value="데이터사이언스">스크랩 많은순</MenuItem>
+                    <MenuItem sx={{ fontSize: '13px', paddingTop: '2px' }}
+                        value="최신순">최신순</MenuItem>
+                    <MenuItem sx={{ fontSize: '13px', paddingTop: '2px' }}
+                        value="좋아요 많은순">좋아요 많은순</MenuItem>
+                    <MenuItem sx={{ fontSize: '13px', paddingTop: '2px' }}
+                        value="데이터사이언스">스크랩 많은순</MenuItem>
                 </Select>
             </div>
 

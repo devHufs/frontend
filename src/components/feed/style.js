@@ -64,7 +64,8 @@ export const Top = styled.div`
     .profile {
         width: 30px;
         height: 30px;
-        padding: 10px 10px;
+        margin: 10px 10px;
+        border-radius: 50%;
     }
     .names {
         padding: 5px 5px;
@@ -78,6 +79,7 @@ export const Top = styled.div`
     }
     .stacks {
         position: relative;
+        width: 75px;
     }
     .stack {
         font-size: 13px;
@@ -233,8 +235,17 @@ export const Comment = styled.div`
         color: gray;
         margin: auto 0;
     }
+    .delete {
+        color: gray;
+        padding: 10px 0 0 10px;
+        font-size: 10px;
+        cursor: pointer;
+    }
     .bottom {
         height: 20px;
+        display: flex;
+    }
+    .body {
         font-size: 15px;
     }
 `

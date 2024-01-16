@@ -24,6 +24,21 @@ export const Container = styled.div`
     .select {
         display: flex;
     }
+    .placeholder-job {
+        position: fixed;
+        right: 420px;
+        top: 95px;
+    }
+    .placeholder-stack {
+        position: fixed;
+        right: 240px;
+        top: 95px;
+    }
+    .placeholder-order {
+        position: fixed;
+        right: 85px;
+        top: 95px;
+    }
     .btn{
         height: 35.2px;
         width: 70px;
@@ -36,6 +51,9 @@ export const Container = styled.div`
         width: 150px;
         height: 30px;
         margin: 10px;
+    }
+    .menu {
+        font-size: 10px;
     }
     .recent-searches-container {
         position:absolute;
