@@ -201,7 +201,7 @@ const Main = () => {
             const response = await axios.delete(`http://13.209.7.109/home/${postid}/delete/`)
             console.log('홈', response.data);
             alert('삭제되었습니다')
-            navigate('/home')
+            window.location.reload();
 
         } catch (error) {
             console.log("내 글")

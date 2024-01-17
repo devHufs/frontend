@@ -109,9 +109,9 @@ const Main = () => {
         }
 
         if (scrapusers.includes(userid)) {
-            setIsHeart(true);
+            setIsSrcap(true);
         } else {
-            setIsHeart(false);
+            setIsSrcap(false);
         }
     })
 
