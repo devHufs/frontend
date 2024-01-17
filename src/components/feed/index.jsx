@@ -48,7 +48,7 @@ const Main = () => {
     const getfeed = async () => {
 
         try {
-            const response = await axios.get(`http://13.209.7.109:8000/home/${id}/`);
+            const response = await axios.get(`http://13.209.7.109/home/${id}/`);
             setFeed(response.data)
             setImg(response.data.user_profile.pic.replace('/media/https%3A', 'https:/'))
             setName(response.data.user_profile.name)
@@ -77,7 +77,7 @@ const Main = () => {
     const putheart = async () => {
 
         try {
-            const response = await axios.post(`http://13.209.7.109:8000/home/${id}/like/${userid}/`);
+            const response = await axios.post(`http://13.209.7.109/home/${id}/like/${userid}/`);
             console.log(response);
             setIsHeart(!isHeart);
 
@@ -89,7 +89,7 @@ const Main = () => {
     const putscrap = async () => {
 
         try {
-            const response = await axios.post(`http://13.209.7.109:8000/home/${id}/scrap/${userid}/`);
+            const response = await axios.post(`http://13.209.7.109/home/${id}/scrap/${userid}/`);
             console.log(response);
             setIsSrcap(!isScrap);
 
@@ -127,13 +127,16 @@ const Main = () => {
 
 
     const [comment, setComment] = useState([])
+    const [commentUser, setCommentUser] = useState(0)
     const getComment = async () => {
 
         try {
-            const response = await axios.get(`http://13.209.7.109:8000/home/${id}/comment/`);
+            const response = await axios.get(`http://13.209.7.109/home/${id}/comment/`);
             // console.log('댓글', response.data);
-            
+
             setComment(response.data)
+            setCommentUser(response.data.comment_user)
+            // console.log(response.data.comment_user)
 
         } catch (error) {
             console.log('댓글', error);
@@ -152,7 +155,7 @@ const Main = () => {
         };
 
         try {
-            const response = await axios.post(`http://13.209.7.109:8000/home/${id}/comment/create/${userid}/`, postData, {
+            const response = await axios.post(`http://13.209.7.109/home/${id}/comment/create/${userid}/`, postData, {
 
             });
             console.log(response.data);
@@ -174,7 +177,7 @@ const Main = () => {
     const deleteComment = async (comment_id) => {
 
         try {
-            const response = await axios.delete(`http://13.209.7.109:8000/home/${id}/comment/${comment_id}/`);
+            const response = await axios.delete(`http://13.209.7.109/home/${id}/comment/${comment_id}/`);
             console.log('댓글삭제', response);
 
         } catch (error) {
@@ -185,23 +188,23 @@ const Main = () => {
 
     const formatDate = (inputDate) => {
         const dateObject = new Date(inputDate);
-        
+
         const year = dateObject.getFullYear();
         const month = dateObject.getMonth() + 1; // Months are zero-based, so we add 1
         const day = dateObject.getDate();
         const hours = dateObject.getHours();
         const minutes = dateObject.getMinutes();
-        
+
         const monthString = `${month}월`;
         const dayString = `${day}일`;
         const period = hours >= 12 ? '오후' : '오전';
         const hours12 = hours % 12 || 12;
         const formattedDate = `${monthString} ${dayString} ${period} ${hours12}시 ${minutes}분`;
-        
-        return formattedDate;
-      };
 
- 
+        return formattedDate;
+    };
+
+
 
 
     return (
@@ -292,7 +295,9 @@ const Main = () => {
                         <div className='top'>
                             <div className='name'>{item.user_profile.name}</div>
                             <div className='date'>{formatDate(item.date)}</div>
-                            <div className='delete'onClick={() => deleteComment(item.id)}>삭제</div>
+                            {/* {userid === item.comment_user && ( */}
+                                <div className='delete' onClick={() => deleteComment(item.id)}>삭제</div>
+                            {/* )} */}
                         </div>
                         <div className='bottom'>
                             {item.body}

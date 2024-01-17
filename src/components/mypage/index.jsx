@@ -44,7 +44,7 @@ const Main = () => {
 
     const getUser = async () => {
         try {
-            const response = await axios.get(`http://13.209.7.109:8000/api/accounts/user/${email}/`)
+            const response = await axios.get(`http://13.209.7.109/api/accounts/user/${email}/`)
             setUser(response.data)
             setImg(response.data.pic.replace('/media/https%3A', 'https:/'))
             // console.log(user)
@@ -139,7 +139,7 @@ const Main = () => {
         };
 
         try {
-            const response = await axios.patch(`http://13.209.7.109:8000/api/accounts/user/${email}/`, postData, {
+            const response = await axios.patch(`http://13.209.7.109/api/accounts/user/${email}/`, postData, {
                 // headers: {
                 //     "Content-Type": "multipart/form-data",
                 // }
@@ -185,7 +185,7 @@ const Main = () => {
 
     const getMyfeed = async () => {
         try {
-            const response = await axios.get(`http://13.209.7.109:8000/home/${userid}/contents/`)
+            const response = await axios.get(`http://13.209.7.109/home/${userid}/contents/`)
             console.log('홈', response.data);
             setMyfeed(response.data)
             console.log("내 글", response.data)
@@ -198,7 +198,7 @@ const Main = () => {
 
     const deleteMyfeed = async (postid) => {
         try {
-            const response = await axios.delete(`http://13.209.7.109:8000/home/${postid}/delete/`)
+            const response = await axios.delete(`http://13.209.7.109/home/${postid}/delete/`)
             console.log('홈', response.data);
             alert('삭제되었습니다')
             navigate('/home')
@@ -213,7 +213,7 @@ const Main = () => {
 
     const getMyscrap = async () => {
         try {
-            const response = await axios.get(`http://13.209.7.109:8000/home/${userid}/scraps/`)
+            const response = await axios.get(`http://13.209.7.109/home/${userid}/scraps/`)
             // console.log('홈', response.data);
             setMyscrap(response.data.contents)
             console.log("스크랩", response.data.contents)
@@ -228,7 +228,7 @@ const Main = () => {
 
     const getMylike = async () => {
         try {
-            const response = await axios.get(`http://13.209.7.109:8000/home/${userid}/likes/`)
+            const response = await axios.get(`http://13.209.7.109/home/${userid}/likes/`)
             // console.log('홈', response.data);
             setMylike(response.data.contents)
             console.log("좋아요", response.data.contents)
