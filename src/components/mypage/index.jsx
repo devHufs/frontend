@@ -20,13 +20,18 @@ const Main = () => {
 
     const navigate = useNavigate();
 
+    const Tofeed = (postId) => {
+        navigate(`/feed`, {state: {id: postId}});
+    };
+
+    const ToEdit = (postId) => {
+        navigate(`/edit`, {state: {id: postId}});
+    };
+
     const Towrite = () => {
         navigate('/write')
     };
 
-    const Toedit = () => {
-        navigate('/edit')
-    }
 
     const email = localStorage.getItem('email');
 
@@ -35,6 +40,7 @@ const Main = () => {
     const [name, setName] = useState("")
     const [major, setMajor] = useState("")
     const [current, setCurrent] = useState("")
+    const [userstack, setUserstack] = useState([])
 
     const getUser = async () => {
         try {
@@ -45,6 +51,7 @@ const Main = () => {
             setName(user.name.split('[')[0].trim())
             setMajor(user.name.substring(user.name.indexOf('/') + 1, user.name.indexOf(']')).trim())
             setCurrent(user.name.substring(user.name.indexOf('[') + 1, user.name.indexOf('/')).trim())
+            setUserstack(user.stack)
 
         } catch (error) {
             console.error('유저 정보', error)
@@ -140,6 +147,8 @@ const Main = () => {
             console.log(response.data);
             alert('게시되었습니다.');
             navigate('/mypage');
+            setOpenjob(false)
+            setOpenstack(false)
 
 
         } catch (error) {
@@ -177,9 +186,22 @@ const Main = () => {
     const getMyfeed = async () => {
         try {
             const response = await axios.get(`http://13.209.7.109:8000/home/${userid}/contents/`)
-            // console.log('홈', response.data);
+            console.log('홈', response.data);
             setMyfeed(response.data)
             console.log("내 글", response.data)
+
+        } catch (error) {
+            console.log("내 글")
+            console.error(error)
+        }
+    };
+
+    const deleteMyfeed = async (postid) => {
+        try {
+            const response = await axios.delete(`http://13.209.7.109:8000/home/${postid}/delete/`)
+            console.log('홈', response.data);
+            alert('삭제되었습니다')
+            navigate('/home')
 
         } catch (error) {
             console.log("내 글")
@@ -251,7 +273,7 @@ const Main = () => {
                         {isHaveInputJob && (
                             <DropDownBox>
                                 {dropDownJobs.length === 0 && (
-                                    <DropDownItem>해당하는 직무가 없습니다</DropDownItem>
+                                    <DropDownItem>찾을 수 없음</DropDownItem>
                                 )}
                                 {dropDownJobs.map((dropDownItem, dropDownIndex) => {
                                     return (
@@ -276,6 +298,8 @@ const Main = () => {
                             <div className='origin-stack'>직무</div>
                             <div className='edit' onClick={Openjob}>수정</div>
                         </div>
+                        <div className='job'>{user.job}</div>
+
                     </Origin>
                 )}
                 {openstack ? (
@@ -292,7 +316,7 @@ const Main = () => {
                         {isHaveInputStack && (
                             <DropDownBox>
                                 {dropDownStacks.length === 0 && (
-                                    <DropDownItem>해당하는 스택이 없습니다</DropDownItem>
+                                    <DropDownItem>찾을 수 없음</DropDownItem>
                                 )}
                                 {dropDownStacks.map((dropDownItem, dropDownIndex) => {
                                     return (
@@ -330,6 +354,10 @@ const Main = () => {
                             <div className='origin-stack'>기술스택</div>
                             <div className='edit' onClick={Openstack}>수정</div>
                         </div>
+                        {userstack.map((item) => (
+                            <div className='job'>{item}</div>
+                        ))}
+
                     </Origin>)}
             </Left>
             <Right>
@@ -344,7 +372,7 @@ const Main = () => {
                         </div>
                         {myfeed.map((item) => (
                             <div className='post'>
-                                <div className='up'>
+                                <div className='up' onClick={() => Tofeed(item.id)}>
                                     <div className='name'>{item.title}</div>
                                     <div className='date'>{new Date(item.date).toISOString().slice(0, 10)}</div>
                                 </div>
@@ -355,8 +383,8 @@ const Main = () => {
                                     <div>{item.comment_cnt}</div>
                                     <FontAwesomeIcon className='scrap' icon={faBookmark} />
                                     <div>{item.scrap_cnt}</div>
-                                    <div className='edit' onClick={Toedit}>수정</div>
-                                    <div className='delete'>삭제</div>
+                                    {/* <div className='edit' onClick={() => ToEdit(item.id)}>수정</div> */}
+                                    <div className='delete' onClick={() => deleteMyfeed(item.id)}>삭제</div>
                                 </div>
                             </div>
                         ))}
@@ -365,51 +393,51 @@ const Main = () => {
                 <Scrap>
                     <div className='title'>스크랩 글</div>
                     <div className='container'>
-                    {myscrap.map((item) => (
-                        <div className='post'>
-                            <div className='up'>
-                                <div className='user'>
-                                    <img className='img' src={item.user_profile.pic.replace('/media/https%3A', 'https:/')} />
-                                    <div className='username'>{item.user_profile.name.split('[')[0].trim()}</div>
+                        {myscrap.map((item) => (
+                            <div className='post' onClick={() => Tofeed(item.id)}>
+                                <div className='up'>
+                                    <div className='user'>
+                                        <img className='img' src={item.user_profile.pic.replace('/media/https%3A', 'https:/')} />
+                                        <div className='username'>{item.user_profile.name.split('[')[0].trim()}</div>
+                                    </div>
+                                    <div className='name'>{item.title}</div>
+                                    <div className='date'>{new Date(item.date).toISOString().slice(0, 10)}</div>
                                 </div>
-                                <div className='name'>{item.title}</div>
-                                <div className='date'>{new Date(item.date).toISOString().slice(0, 10)}</div>
+                                <div className='infos'>
+                                    <FontAwesomeIcon className='heart' icon={faHeart} />
+                                    <div>{item.like_cnt}</div>
+                                    <FontAwesomeIcon className='comment' icon={faComment} />
+                                    <div>{item.comment_cnt}</div>
+                                    <FontAwesomeIcon className='scrap' icon={faBookmark} />
+                                    <div>{item.scrap_cnt}</div>
+                                </div>
                             </div>
-                            <div className='infos'>
-                                <FontAwesomeIcon className='heart' icon={faHeart} />
-                                <div>{item.like_cnt}</div>
-                                <FontAwesomeIcon className='comment' icon={faComment} />
-                                <div>{item.comment_cnt}</div>
-                                <FontAwesomeIcon className='scrap' icon={faBookmark} />
-                                <div>{item.scrap_cnt}</div>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
                     </div>
                 </Scrap>
                 <Info>
                     <div className='title'>좋아요 한 글</div>
                     <div className='container'>
-                    {mylike.map((item) => (
+                        {mylike.map((item) => (
 
-                    <div className='post'>
-                        <div className='up'>
-                            <div className='user'>
-                                <img className='img' src={item.user_profile.pic.replace('/media/https%3A', 'https:/')} />
-                                <div className='username'>{item.user_profile.name.split('[')[0].trim()}</div>
-                            </div>
-                            <div className='name'>{item.title}</div>
-                            <div className='date'>{new Date(item.date).toISOString().slice(0, 10)}</div>
-                        </div>
-                        <div className='infos'>
-                            <FontAwesomeIcon className='heart' icon={faHeart} />
-                            <div>{item.like_cnt}</div>
-                            <FontAwesomeIcon className='comment' icon={faComment} />
-                            <div>{item.comment_cnt}</div>
-                            <FontAwesomeIcon className='scrap' icon={faBookmark} />
-                            <div>{item.scrap_cnt}</div>
-                        </div>
-                    </div>))}
+                            <div className='post' onClick={() => Tofeed(item.id)}>
+                                <div className='up'>
+                                    <div className='user'>
+                                        <img className='img' src={item.user_profile.pic.replace('/media/https%3A', 'https:/')} />
+                                        <div className='username'>{item.user_profile.name.split('[')[0].trim()}</div>
+                                    </div>
+                                    <div className='name'>{item.title}</div>
+                                    <div className='date'>{new Date(item.date).toISOString().slice(0, 10)}</div>
+                                </div>
+                                <div className='infos'>
+                                    <FontAwesomeIcon className='heart' icon={faHeart} />
+                                    <div>{item.like_cnt}</div>
+                                    <FontAwesomeIcon className='comment' icon={faComment} />
+                                    <div>{item.comment_cnt}</div>
+                                    <FontAwesomeIcon className='scrap' icon={faBookmark} />
+                                    <div>{item.scrap_cnt}</div>
+                                </div>
+                            </div>))}
                     </div>
                 </Info>
             </Right>

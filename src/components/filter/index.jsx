@@ -58,37 +58,65 @@ const Filter = () => {
 
     const onChangeInput = (e) => {
         setInputword(e.target.value)
+        console.log('dd', inputword)
     }
 
     const [data, setData] = useState([]);
+    const [searched, setSearched] = useState([]);
 
-    const handleClickBtn = (selectedSearch) => {
-        setInputword(selectedSearch);
+    const handleClickBtn = async (selectedSearch) => {
+        try {
+            const response = await axios.get(`http://13.209.7.109/home/search/${inputword}/`, {
+                withCredentials: 'include',
+            });
 
-        const storedData = JSON.parse(localStorage.getItem('recentSearches')) || [];
-        setData(storedData);
-        if (data.length < 5) {
-            setData([...data, inputword]);
-        } else {
-            setData([...data.slice(1), inputword]);
+            setInputword(selectedSearch);
+            setSearched(response.data);
+            console.log("검색", response.data);
+
+            const storedData = JSON.parse(localStorage.getItem('recentSearches')) || [];
+            setData(storedData);
+            if (data.length < 5) {
+                setData([...data, inputword]);
+            } else {
+                setData([...data.slice(1), inputword]);
+            }
+
+            localStorage.setItem('recentSearches', JSON.stringify(data));
+            console.log(JSON.parse(localStorage.getItem('recentSearches')))
+
+        } catch (error) {
+            console.log("검색");
+            console.error(error);
         }
-
-        localStorage.setItem('recentSearches', JSON.stringify(data));
-        console.log(JSON.parse(localStorage.getItem('recentSearches')))
     }
 
-    const handleClick = (selectedSearch) => {
+
+    const handleClick = async (selectedSearch) => {
         setInputword(selectedSearch);
 
-        const storedData = JSON.parse(localStorage.getItem('recentSearches')) || [];
-        setData((data) => {
-            const newData = data.length < 5 ? [...data, selectedSearch] : [...data.slice(1), selectedSearch];
-            localStorage.setItem('recentSearches', JSON.stringify(newData));
-            console.log(JSON.parse(localStorage.getItem('recentSearches')))
-            return newData;
-        });
+        try {
+            const response = await axios.get(`http://13.209.7.109/home/search/${selectedSearch}/`, {
+                withCredentials: 'include',
+            });
 
-        setShowRecentSearches(false); // Close the recent searches container
+            setSearched(response.data);
+            console.log("검색", response.data);
+            setInputword(selectedSearch);
+
+            const storedData = JSON.parse(localStorage.getItem('recentSearches')) || [];
+            setData((data) => {
+                const newData = data.length < 5 ? [...data, selectedSearch] : [...data.slice(1), selectedSearch];
+                localStorage.setItem('recentSearches', JSON.stringify(newData));
+                console.log(JSON.parse(localStorage.getItem('recentSearches')))
+                return newData;
+            });
+
+            setShowRecentSearches(false); // Close the recent searches container
+        } catch (error) {
+            console.log("검색");
+            console.error(error);
+        }
     };
 
 
@@ -130,7 +158,6 @@ const Filter = () => {
             window.removeEventListener('click', handleClickOutside);
         };
     }, []);
-
 
 
 
@@ -223,7 +250,7 @@ const Filter = () => {
                         value="데이터사이언스">스크랩 많은순</MenuItem>
                 </Select>
             </div>
-
+            
 
         </Container>
 

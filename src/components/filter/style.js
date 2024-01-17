@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import '../../App.css';
 
+export const Container2 = styled.div`
+    max-width: 1280px;
+    height: 100%
+`
+
 export const Container = styled.div`
     align-items: center;
     height: 100px;

@@ -62,7 +62,7 @@ const Main = () => {
 
     const getUser = async () => {
         try {
-            const response = await axios.get(`http://13.209.7.109:8000/api/accounts/user/${email}/`)
+            const response = await axios.get(`http://13.209.7.109/api/accounts/user/${email}/`)
             setUser(response.data)
             setImg(response.data.pic.replace('/media/https%3A', 'https:/'))
             // console.log(user)
