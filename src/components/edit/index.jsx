@@ -7,29 +7,34 @@ import {
     Info, Filearea, Maininput, Job, Stacks, DropDownBox, DropDownItem,
     Jobinput, Stackinput, MaxLengthText, MainTextarea, Stack
 } from "./style";
+import {wholeJobsArray, wholeStacksArray} from '../arrays';
 
 const Main = () => {
 
 
-    const wholeJobsArray = [
-        '프론트엔드',
-        '백엔드',
-        '풀스택',
-        '데브옵스엔지니어',
-        '데이터분석가',
-        '클라우드엔지니어',
-        '앱 개발자',
-    ]
+    const { state } = useLocation();
+    const { id } = state;
 
-    const wholeStacksArray = [
-        'react',
-        'django',
-        'javascript',
-        'typescript',
-        'python',
-        'java',
-        'spring',
-    ]
+    const [feed, setFeed] = useState("");
+
+
+    const getfeed = async () => {
+
+        try {
+            const response = await axios.get(`http://13.209.7.109:8000/home/${id}/`);
+            setFeed(response.data)
+            // console.log("개별 글", response.data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    
+
+    useEffect(() => {
+        getfeed();
+    }, [])
 
     const fileInput = React.createRef();
     const formRef = React.createRef();
@@ -39,12 +44,31 @@ const Main = () => {
         fileInput.current.click();
     };
 
-    const [title, setTitle] = useState("")
+    const [title, setTitle] = useState("");
+    useEffect(() => {
+        setTitle(feed.title);
+    }, [feed.title]);
+
     const [content, setContent] = useState("")
+    useEffect(() => {
+        setContent(feed.body);
+    }, [feed.body]);
+
     const [job, setJob] = useState("")
+    useEffect(() => {
+        setJob(feed.job);
+    }, [feed.job]);
+
     const [stack, setStack] = useState("")
     const [file, setFile] = useState("");
+    useEffect(() => {
+        setFile(feed.attached);
+    }, [feed.attached]);
+
     const [filename, setFilename] = useState(null)
+
+    const [link, setLink] = useState("");
+
 
     const [isHaveInputJob, setIsHaveInputJob] = useState(false)
     const [isHaveInputStack, setIsHaveInputStack] = useState(false)
@@ -92,12 +116,14 @@ const Main = () => {
         setIsHaveInputJob(false)
         setChosenJob(clickedItem);
         setIsHaveInputStack(false)
+        console.log(chosenJob)
     }
 
     const clickDropDownStack = clickedItem => {
         setStack("")
         setIsHaveInputStack(false)
         setChosenStack([...chosenStack, clickedItem]);
+        console.log(chosenStack)
     }
 
 
@@ -118,6 +144,10 @@ const Main = () => {
         setStack(e.target.value)
     }
 
+    const onChangeLink = (e) => {
+        setLink(e.target.value);
+    }
+
     const onChangeFile = (e) => {
 
         const selectedFile = e.target.files[0];
@@ -127,16 +157,25 @@ const Main = () => {
     }
 
     console.log(filename)
+    const userid = localStorage.getItem('userid');
 
-    const postfeed = async () => {
+
+    const editfeed = async () => {
         const formData = new FormData();
 
         formData.append('title', title);
         formData.append('body', content);
         formData.append('attached', file);
+        formData.append('stack', JSON.stringify(chosenStack));
+        formData.append('link', link);
+        formData.append('job', chosenJob);
+        // const postData = {
+        //     'stack': chosenStack,
+        //     'job': chosenJob
+        // };
 
         try {
-            const response = await axios.post('http://13.209.7.109:8000/home/create/',  formData  , {
+            const response = await axios.put(`http://13.209.7.109/home/${id}/update/`,  formData  , {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 }
@@ -166,7 +205,7 @@ const Main = () => {
         <Container>
             <Title>
                 <Word>이력서 등록</Word>
-                <PostButton onClick={postfeed}>등록하기</PostButton>
+                <PostButton onClick={editfeed}>등록하기</PostButton>
             </Title>
             <Content>
                 <Info>
@@ -271,6 +310,8 @@ const Main = () => {
                             <input
                                 className='link'
                                 placeholder='이력서 링크를 입력하세요. (노션, 깃허브 등)'
+                                value={link}
+                                onChange={onChangeLink}
                             />
                         </div>
                     </Filearea>

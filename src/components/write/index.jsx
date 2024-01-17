@@ -135,7 +135,7 @@ const Main = () => {
         // };
 
         try {
-            const response = await axios.post(`http://13.209.7.109:8000/home/create/${userid}/`,  formData  , {
+            const response = await axios.post(`http://13.209.7.109/home/create/${userid}/`,  formData  , {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 }

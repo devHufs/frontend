@@ -42,6 +42,8 @@ const Main = () => {
     const [name, setName] = useState("")
     const [stacks, setStacks] = useState([])
     const [formattedDate, setFormattedDate] = useState("")
+    const [likeusers, setLikeusers] = useState([])
+    const [scrapusers, setScrapusers] = useState([])
 
     const getfeed = async () => {
 
@@ -51,12 +53,15 @@ const Main = () => {
             setImg(response.data.user_profile.pic.replace('/media/https%3A', 'https:/'))
             setName(response.data.user_profile.name)
             setStacks(response.data.stack)
-            console.log("개별 글", response.data);
+            // console.log("개별 글", response.data);
 
             const dateObject = new Date(response.data.date);
             const year = dateObject.getFullYear();
             const month = dateObject.getMonth() + 1; // Months are zero-based, so we add 1
             const day = dateObject.getDate();
+
+            setLikeusers(response.data.like_users)
+            setScrapusers(response.data.scrap_users)
 
             setFormattedDate(`${year}년 ${month}월 ${day}일 작성`)
 
@@ -97,6 +102,17 @@ const Main = () => {
     useEffect(() => {
         getfeed();
         getComment();
+        if (likeusers.includes(userid)) {
+            setIsHeart(true);
+        } else {
+            setIsHeart(false);
+        }
+
+        if (scrapusers.includes(userid)) {
+            setIsHeart(true);
+        } else {
+            setIsHeart(false);
+        }
     })
 
     const handlePreviewClick = () => {
@@ -115,7 +131,7 @@ const Main = () => {
 
         try {
             const response = await axios.get(`http://13.209.7.109:8000/home/${id}/comment/`);
-            console.log('댓글', response.data);
+            // console.log('댓글', response.data);
             
             setComment(response.data)
 
@@ -159,11 +175,10 @@ const Main = () => {
 
         try {
             const response = await axios.delete(`http://13.209.7.109:8000/home/${id}/comment/${comment_id}/`);
-            console.log('댓글', response);
-            setComment(response.data)
+            console.log('댓글삭제', response);
 
         } catch (error) {
-            console.log('댓글', error);
+            console.log('댓글삭제에러', error);
         }
     }
 
@@ -178,17 +193,15 @@ const Main = () => {
         const minutes = dateObject.getMinutes();
         
         const monthString = `${month}월`;
-        
         const dayString = `${day}일`;
-        
         const period = hours >= 12 ? '오후' : '오전';
-        
         const hours12 = hours % 12 || 12;
-        
         const formattedDate = `${monthString} ${dayString} ${period} ${hours12}시 ${minutes}분`;
         
         return formattedDate;
       };
+
+ 
 
 
     return (

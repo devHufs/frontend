@@ -62,7 +62,7 @@ const Main = () => {
 
 
             const axiosResponse = await axios.get(
-                'http://13.209.7.109:8000/api/accounts/google/login/get_id_token/',
+                'http://13.209.7.109/api/accounts/google/login/get_id_token/',
                 {
                     headers: {
                         Authorization: accessToken,

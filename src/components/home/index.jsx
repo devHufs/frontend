@@ -22,17 +22,18 @@ const Main = () => {
 
     const getAllfeed = async () => {
         try {
-            const response = await axios.get('http://13.209.7.109:8000/home/')
-            // console.log('홈', response.data);
-            setAllfeed(response.data)
-            console.log("전체 글", response.data)
-
-
+            const response = await axios.get('http://13.209.7.109/home/', {
+                withCredentials:'include',
+            });
+    
+            setAllfeed(response.data);
+            console.log("전체 글", response.data);
         } catch (error) {
-            console.log("홈 불러오기")
-            console.error(error)
+            console.log("홈 불러오기");
+            console.error(error);
         }
     };
+    
 
     useEffect(() => {
         getAllfeed();

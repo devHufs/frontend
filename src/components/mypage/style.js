@@ -49,18 +49,21 @@ export const Left = styled.div`
 
 export const Origin = styled.div`
     height: 80px;
-    margin: 5% 20px 5% 20px;
+    margin: 10% 20px 5% 20px;
     .title {
         display: flex;
     }
     .origin-stack {
-        height: 43px;
+        height: 30px;
     }
     .edit {
         font-size: 12px;
         padding: 3px 0px 2px 10px;
         color:gray;
         cursor: pointer;
+    }
+    .job {
+        font-size: 13px;
     }
 `
 
@@ -93,6 +96,7 @@ export const Scrap = styled.div`
         border: 1px solid lightgray;
         border-radius: 10px;
         margin-right: 15px;
+        cursor: pointer;
     }
     .user {
         display: flex;
@@ -160,6 +164,7 @@ export const Posts = styled.div`
         border: 1px solid lightgray;
         border-radius: 10px;
         margin-right: 15px;
+        cursor: pointer;
     }
     .name {
         height: 10%;
@@ -211,7 +216,7 @@ export const Posts = styled.div`
         font-size: 10px;
     }
     .delete {
-        padding: 2px 5px 5px 4px;
+        padding: 2px 5px 5px 45px;
         cursor: pointer;
         font-size: 10px;
     }
@@ -235,6 +240,7 @@ export const Info = styled.div`
         border: 1px solid lightgray;
         border-radius: 10px;
         margin-right: 15px;
+        cursor: pointer;
     }
     .container {
         display: flex;
@@ -285,8 +291,8 @@ export const Info = styled.div`
 
 export const Stacks = styled.div`
     font-family: "SUITE-Regular";
-    margin: 5% 20px 5% 20px;
-    height: 100px;
+    margin: 10% 20px 5% 20px;
+    height: 80px;
     .top {
         display: flex;
     }
@@ -324,7 +330,7 @@ export const Stackinput = styled.input`
 
 export const DropDownBox = styled.ul`
 display: block;
-width: 50%;
+width: 10%;
 margin: 0 0;
 padding: 8px 20px;
 background-color: white;
@@ -340,6 +346,7 @@ position: absolute;
 export const DropDownItem = styled.li`
 padding: 3px 16px;
 cursor: pointer;
+font-size: 15px;
 
 &.selected {
 background-color: lightgray;
