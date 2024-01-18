@@ -20,16 +20,12 @@ const Main = () => {
 
     const [allfeed, setAllfeed] = useState([])
 
-    const host = window.location.hostname === "localhost"
-        ? 'http://13.209.7.109/'
-        : "api";
-
     const getAllfeed = async () => {
         try {
-            const response = await axios.get({
-                baseURL: host,
+            const response = await axios.get('http://13.209.7.109/home/', {
+                withCredentials:'include',
             });
-
+    
             setAllfeed(response.data);
             console.log("전체 글", response.data);
         } catch (error) {
