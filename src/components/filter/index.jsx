@@ -273,12 +273,13 @@ const Filter = () => {
 
 
             </Container>
-            {searched.map((item) => (
                 <Search>
                     <div className='title'>
                         <div>검색 결과</div>
                         <div className='reset' onClick={reset}>검색 결과 삭제</div>
                     </div>
+                    {searched.map((item) => (
+
                     <Posts onClick={() => Tofeed(item.id)}>
                         <div className='boxes'>
                             <div className='post'>
@@ -302,8 +303,9 @@ const Filter = () => {
                             </div>
                         </div>
                     </Posts>
+                                ))}
+
                 </Search>
-            ))}
         </Main>
 
 
