@@ -102,17 +102,17 @@ const Main = () => {
     useEffect(() => {
         getfeed();
         getComment();
-        if (likeusers.includes(userid)) {
-            setIsHeart(true);
-        } else {
-            setIsHeart(false);
-        }
+        // if (likeusers.includes(userid)) {
+        //     setIsHeart(true);
+        // } else {
+        //     setIsHeart(false);
+        // }
 
-        if (scrapusers.includes(userid)) {
-            setIsSrcap(true);
-        } else {
-            setIsSrcap(false);
-        }
+        // if (scrapusers.includes(userid)) {
+        //     setIsSrcap(true);
+        // } else {
+        //     setIsSrcap(false);
+        // }
     })
 
     const handlePreviewClick = () => {
