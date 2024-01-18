@@ -15,17 +15,21 @@ const Main = () => {
     const navigate = useNavigate();
 
     const Tofeed = (postId) => {
-        navigate(`/feed`, {state: {id: postId}});
+        navigate(`/feed`, { state: { id: postId } });
     };
 
     const [allfeed, setAllfeed] = useState([])
 
+    const host = window.location.hostname === "localhost"
+        ? 'http://13.209.7.109/'
+        : "api";
+
     const getAllfeed = async () => {
         try {
-            const response = await axios.get('http://13.209.7.109/home/', {
-                withCredentials:'include',
+            const response = await axios.get({
+                baseURL: host,
             });
-    
+
             setAllfeed(response.data);
             console.log("전체 글", response.data);
         } catch (error) {
@@ -33,7 +37,7 @@ const Main = () => {
             console.error(error);
         }
     };
-    
+
 
     useEffect(() => {
         getAllfeed();
