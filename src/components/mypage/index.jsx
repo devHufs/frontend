@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import BasicProfile from '../../images/profiletest.png';
+// import BasicProfile from '../../images/profiletest.png';
 import BasicImage from '../../images/testback.png';
 import {
     Container, Left, Right, Info, Scrap, Posts, Stacks, Stackinput, Stack,

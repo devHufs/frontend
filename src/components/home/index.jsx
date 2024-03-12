@@ -18,25 +18,42 @@ const Main = () => {
         navigate(`/feed`, { state: { id: postId } });
     };
 
-    const [allfeed, setAllfeed] = useState([])
+    const allfeed = [
+		{
+        "id": 13,
+        "title": "login test",
+        "date": "2024-01-15T14:27:19.639582Z",
+        "user_profile": {
+            "email": "202102760@hufs.ac.kr",
+            "name": "이채영[재학 / 페르시아어·이란학과]",
+            "pic": "/media/https%3A/lh3.googleusercontent.com/a/ACg8ocJ_6bLFQzvWdwl5klFdRifMfaXCo7pTiW96CMGOPVILmbE%3Ds96-c",
+            "student_num": 0,
+            "job": ""
+        },
+        "like_cnt": 0,
+        "comment_cnt": 0,
+        "scrap_cnt": 1
+    }]
 
-    const getAllfeed = async () => {
-        try {
-            const response = await axios.get('http://13.209.7.109/home/', {
-                withCredentials:'include',
-            });
+    // const [allfeed, setAllfeed] = useState([])
+
+    // const getAllfeed = async () => {
+    //     try {
+    //         const response = await axios.get('http://13.209.7.109/home/', {
+    //             withCredentials:'include',
+    //         });
     
-            setAllfeed(response.data);
-            console.log("전체 글", response.data);
-        } catch (error) {
-            console.log("홈 불러오기");
-            console.error(error);
-        }
-    };
+    //         setAllfeed(response.data);
+    //         console.log("전체 글", response.data);
+    //     } catch (error) {
+    //         console.log("홈 불러오기");
+    //         console.error(error);
+    //     }
+    // };
 
 
     useEffect(() => {
-        getAllfeed();
+        // getAllfeed();
     }, [])
 
 
